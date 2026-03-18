@@ -71,6 +71,8 @@ public class Game {
 				goRoom(command);
 			} else if (commandWord.equals("quit")) {
 				wantToQuit = quit(command);
+			} else if (commandWord.equals("look")) {
+				look();
 			} else {
 				Writer.println(commandWord + " is not implemented yet!");
 			}
@@ -81,6 +83,14 @@ public class Game {
 	///////////////////////////////////////////////////////////////////////////
 	// Helper methods for implementing all of the commands.
 	// It helps if you organize these in alphabetical order.
+
+	/*
+	 *  Prints out the location information.
+	 */
+	
+	private void look() {
+		Writer.println("There is nothing around you");
+	}
 
 	/**
 	 * Try to go to one direction. If there is an exit, enter the new room,
@@ -153,7 +163,7 @@ public class Game {
 		Writer.println("around at the university.");
 		Writer.println();
 		Writer.println("Your command words are:");
-		Writer.println("   go quit help");
+		Writer.println("   go quit help look");
 	}
 
 	/**
@@ -199,4 +209,5 @@ public class Game {
 		}
 		return wantToQuit;
 	}
+	
 }
