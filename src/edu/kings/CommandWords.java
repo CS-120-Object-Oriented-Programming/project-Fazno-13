@@ -1,4 +1,5 @@
 package edu.kings;
+
 /**
  * This class is part of the "Campus of Kings" application. "Campus of Kings" is a
  * very simple, text based adventure game.
@@ -14,14 +15,15 @@ package edu.kings;
 
 public class CommandWords {
 	/** A constant array that holds all valid command words. */
-	private static String[] validCommands;
+	private static CommandEnum[] validCommands;
 
 	/**
 	 * Static block to initialize the fields of CommandWords.
 	 */
 	static {
-		String[] tempCommands = {"go", "quit", "help", "look" };
+		CommandEnum [] tempCommands = {CommandEnum.GO, CommandEnum.HELP, CommandEnum.QUIT, CommandEnum.LOOK};
 		validCommands = tempCommands;
+
 	}
 
 	/**
@@ -30,11 +32,11 @@ public class CommandWords {
 	 * @param aString The string to determine whether it is a valid command.
 	 * @return true if a given string is a valid command, false if it isn't.
 	 */
-	public static boolean isCommand(String aString) {
+	public static boolean isCommand(CommandEnum aCommandEnum) {
 		boolean valid = false;
 		int index = 0;
 		while (!valid && index < validCommands.length) {
-			if (validCommands[index].equals(aString)) {
+			if (validCommands[index].equals(aCommandEnum)) {
 				valid = true;
 			}
 			index++;

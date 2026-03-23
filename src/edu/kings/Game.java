@@ -72,7 +72,7 @@ public class Game {
 			} else if (commandWord.equals("quit")) {
 				wantToQuit = quit(command);
 			} else if (commandWord.equals("look")) {
-				look();
+				look(command);
 			} else {
 				Writer.println(commandWord + " is not implemented yet!");
 			}
@@ -88,7 +88,7 @@ public class Game {
 	 *  Prints out the location information.
 	 */
 	
-	private void look() {
+	private void look(Command command) {
 		Writer.println("There is nothing around you");
 	}
 
