@@ -24,6 +24,8 @@ public class Game {
 	/** Adds the Score and number of turns */
 	private int score;
 	private int turns;
+	/** Tracks the last room the player is in */
+	private Room lastroom;
 	
 	/**
 	 * Create the game and initialize its internal map.
@@ -32,6 +34,7 @@ public class Game {
 		world = new World();
 		// set the starting room
 		character = new Player(world.getRoom("outside"));
+		lastroom = world.getRoom("outside");
 	}
 
 	/**
@@ -82,6 +85,23 @@ public class Game {
 				break;
 			case LOOK:
 				look(command);
+				break;
+			case STATUS:
+				Writer.println("The Player score is: " + score);
+				Writer.println("You are on turn: " + turns);
+				printLocationInformation(character.getCurrentRoom());
+				break;
+			case BACK:
+				Room back = character.getCurrentRoom();
+				character.setCurrentRoom(lastroom);
+				printLocationInformation(lastroom);
+				lastroom = back;
+				break;
+			case TURNS:
+				Writer.println("You are on turn: " + turns);
+				break;
+			case SCORE:
+				Writer.println("The Player score is: " + score);
 				break;
 			default:
 				Writer.println(commandWord + " is not implemented yet!");
@@ -153,6 +173,7 @@ public class Game {
 			if (doorway == null) {
 				Writer.println("There is no door!");
 			} else {
+				lastroom = character.getCurrentRoom();
 				Room newRoom = doorway.getDestination();
 				character.setCurrentRoom(newRoom);
 				printLocationInformation(newRoom);
