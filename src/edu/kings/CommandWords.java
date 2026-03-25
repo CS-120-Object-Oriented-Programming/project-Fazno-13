@@ -44,4 +44,24 @@ public class CommandWords {
 		// if we get here, the string was not found in the commands
 		return valid;
 	}
+	
+	/** 
+	* Converts a String into a CommandEnum object. 
+	* 
+	* @param theString The String containing the command word. 
+	* @return The CommandEnum object representing the command, or null if 
+	*		  the command does not exist.
+	*/ 
+	public static CommandEnum getCommand(String theString) {
+		if (theString == null) {
+			return null;
+		}
+		for (CommandEnum cmd : CommandEnum.values()) {
+		        if (cmd.name().equalsIgnoreCase(theString)) {
+		            return cmd;
+		        }
+		}
+		return null;
+	}
 }
+	

@@ -21,6 +21,10 @@ public class Game {
 	private World world;
 	/** This is a field that stores	the	character controlled by	the	player */
 	private Player character;
+	/** Adds the Score and number of turns */
+	private int score;
+	private int turns;
+	
 	/**
 	 * Create the game and initialize its internal map.
 	 */
@@ -35,13 +39,14 @@ public class Game {
 	 */
 	public void play() {
 		printWelcome();
-
+		score = 0;
 		// Enter the main game loop. Here we repeatedly read commands and
 		// execute them until the game is over.
 		boolean wantToQuit = false;
 		while (!wantToQuit) {
 			Command command = Reader.getCommand();
 			wantToQuit = processCommand(command);
+			turns++;
 			// other stuff that needs to happen every turn can be added here.
 		}
 		printGoodbye();
@@ -64,16 +69,21 @@ public class Game {
 			Writer.println("I don't know what you mean...");
 		} else {
 
-			String commandWord = command.getCommandWord();
-			if (commandWord.equals("help")) {
+			CommandEnum commandWord = command.getCommandWord();
+			switch (commandWord) {
+			case HELP:
 				printHelp();
-			} else if (commandWord.equals("go")) {
+				break;
+			case GO:
 				goRoom(command);
-			} else if (commandWord.equals("quit")) {
+				break;
+			case QUIT:
 				wantToQuit = quit(command);
-			} else if (commandWord.equals("look")) {
+				break;
+			case LOOK:
 				look(command);
-			} else {
+				break;
+			default:
 				Writer.println(commandWord + " is not implemented yet!");
 			}
 		}
@@ -87,6 +97,25 @@ public class Game {
 	/*
 	 *  Prints out the location information.
 	 */
+	private void printLocationInformation(Room newRoom) {
+		Writer.println(newRoom.getName() + ":");
+		Writer.println("You are " + newRoom.getDescription());
+		Writer.print("Exits: ");
+		if (newRoom.northExit != null) {
+			Writer.print("north ");
+		}
+		if (newRoom.eastExit != null) {
+			Writer.print("east ");
+		}
+		if (newRoom.southExit != null) {
+			Writer.print("south ");
+		}
+		if (newRoom.westExit != null) {
+			Writer.print("west ");
+		}
+		Writer.println();
+	}
+	
 	
 	private void look(Command command) {
 		Writer.println("There is nothing around you");
@@ -126,22 +155,7 @@ public class Game {
 			} else {
 				Room newRoom = doorway.getDestination();
 				character.setCurrentRoom(newRoom);
-				Writer.println(newRoom.getName() + ":");
-				Writer.println("You are " + newRoom.getDescription());
-				Writer.print("Exits: ");
-				if (newRoom.northExit != null) {
-					Writer.print("north ");
-				}
-				if (newRoom.eastExit != null) {
-					Writer.print("east ");
-				}
-				if (newRoom.southExit != null) {
-					Writer.print("south ");
-				}
-				if (newRoom.westExit != null) {
-					Writer.print("west ");
-				}
-				Writer.println();
+				printLocationInformation(newRoom);
 			}
 		}
 	}
@@ -175,22 +189,7 @@ public class Game {
 		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
 		Writer.println("Type 'help' if you need help.");
 		Writer.println();
-		Writer.println(character.getCurrentRoom() + ":");
-		Writer.println("You are " + character.getCurrentRoom().getDescription());
-		Writer.print("Exits: ");
-		if (character.getCurrentRoom().northExit != null) {
-			Writer.print("north ");
-		}
-		if (character.getCurrentRoom().eastExit != null) {
-			Writer.print("east ");
-		}
-		if (character.getCurrentRoom().southExit != null) {
-			Writer.print("south ");
-		}
-		if (character.getCurrentRoom().westExit != null) {
-			Writer.print("west ");
-		}
-		Writer.println("");
+		printLocationInformation(character.getCurrentRoom());
 	}
 
 	/**
