@@ -15,17 +15,12 @@ package edu.kings;
 
 public class CommandWords {
 	/** A constant array that holds all valid command words. */
-	private static CommandEnum[] validCommands;
+	private static CommandEnum[] validCommands = {CommandEnum.GO, CommandEnum.HELP, CommandEnum.QUIT, CommandEnum.LOOK,
+			CommandEnum.STATUS, CommandEnum.BACK,CommandEnum.TURNS,CommandEnum.SCORE};
 
 	/**
 	 * Static block to initialize the fields of CommandWords.
 	 */
-	static {
-		CommandEnum [] tempCommands = {CommandEnum.GO, CommandEnum.HELP, CommandEnum.QUIT, CommandEnum.LOOK,
-										CommandEnum.STATUS, CommandEnum.BACK,CommandEnum.TURNS,CommandEnum.SCORE};
-		validCommands = tempCommands;
-
-	}
 
 	/**
 	 * Check whether a given String is a valid command word.
@@ -54,15 +49,26 @@ public class CommandWords {
 	*		  the command does not exist.
 	*/ 
 	public static CommandEnum getCommand(String theString) {
-		if (theString == null) {
+		switch(theString) {
+		case ("go"):
+			return CommandEnum.GO;
+		case ("help"):
+			return CommandEnum.HELP;
+		case ("look"):
+			return CommandEnum.LOOK;
+		case ("back"):
+			return CommandEnum.BACK;
+		case ("status"):
+			return CommandEnum.STATUS;
+		case ("quit"):
+			return CommandEnum.QUIT;
+		case ("score"):
+			return CommandEnum.SCORE;
+		case ("turns"):
+			return CommandEnum.TURNS;
+		default:
 			return null;
 		}
-		for (CommandEnum cmd : CommandEnum.values()) {
-		        if (cmd.name().equalsIgnoreCase(theString)) {
-		            return cmd;
-		        }
-		}
-		return null;
 	}
 }
 	

@@ -118,22 +118,7 @@ public class Game {
 	 *  Prints out the location information.
 	 */
 	private void printLocationInformation(Room newRoom) {
-		Writer.println(newRoom.getName() + ":");
-		Writer.println("You are " + newRoom.getDescription());
-		Writer.print("Exits: ");
-		if (newRoom.northExit != null) {
-			Writer.print("north ");
-		}
-		if (newRoom.eastExit != null) {
-			Writer.print("east ");
-		}
-		if (newRoom.southExit != null) {
-			Writer.print("south ");
-		}
-		if (newRoom.westExit != null) {
-			Writer.print("west ");
-		}
-		Writer.println();
+		Writer.println(character.getCurrentRoom().toString());
 	}
 	
 	
@@ -158,16 +143,16 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = character.getCurrentRoom().northExit;
+				doorway = character.getCurrentRoom().getNorthExit();
 			}
 			if (direction.equals("east")) {
-				doorway = character.getCurrentRoom().eastExit;
+				doorway = character.getCurrentRoom().getEastExit();
 			}
 			if (direction.equals("south")) {
-				doorway = character.getCurrentRoom().southExit;
+				doorway = character.getCurrentRoom().getSouthExit();
 			}
 			if (direction.equals("west")) {
-				doorway = character.getCurrentRoom().westExit;
+				doorway = character.getCurrentRoom().getWestExit();
 			}
 
 			if (doorway == null) {
@@ -198,7 +183,9 @@ public class Game {
 		Writer.println("around at the university.");
 		Writer.println();
 		Writer.println("Your command words are:");
-		Writer.println("   go quit help look");
+		for (CommandEnum commandWord: CommandEnum.values()) {
+			Writer.print(commandWord.getCommand() + " ");
+		}
 	}
 
 	/**

@@ -62,7 +62,7 @@ public class World {
 	 */
 	private void createNorthDoor(Room from, Room north) {
 		Door northDoor = new Door(north);
-		from.northExit = northDoor;
+		from.setNorthExit(northDoor);
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class World {
 	 */
 	private void createEastDoor(Room from, Room east) {
 		Door eastDoor = new Door(east);
-		from.eastExit = eastDoor;
+		from.setEastExit(eastDoor);
 	}
 
 	/**
@@ -88,8 +88,8 @@ public class World {
 	 */
 	private void createSouthDoor(Room from, Room south) {
 		Door southDoor = new Door(south);
-		from.southExit = southDoor;
-	}
+		from.setSouthExit(southDoor);
+		}
 
 	/**
 	 * Helper method for creating doors between rooms.
@@ -101,8 +101,8 @@ public class World {
 	 */
 	private void createWestDoor(Room from, Room west) {
 		Door westDoor = new Door(west);
-		from.westExit = westDoor;
-	}
+		from.setWestExit(westDoor);
+		}
 
 	/**
 	 * This method creates all of the individual places in this world and all
