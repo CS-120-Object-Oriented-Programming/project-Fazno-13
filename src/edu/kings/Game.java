@@ -10,6 +10,7 @@ package edu.kings;
  * commands that the parser returns.
  *
  * @author Maria Jump
+ * @author Vincent Fazzino
  * @version 2015.02.01
  *
  * Used with permission from Dr. Maria Jump at Northeastern University
@@ -18,16 +19,22 @@ package edu.kings;
 public class Game {
 	/** The world where the game takes place. */
 	private World world;
-	/** The room the player character is currently in. */
-	private Room currentRoom;
-
+	/** This is a field that stores	the	character controlled by	the	player */
+	private Player character;
+	/** Adds the Score and number of turns */
+	private int score;
+	private int turns;
+	/** Tracks the last room the player is in */
+	private Room lastroom;
+	
 	/**
 	 * Create the game and initialize its internal map.
 	 */
 	public Game() {
 		world = new World();
 		// set the starting room
-		currentRoom = world.getRoom("outside");
+		character = new Player(world.getRoom("outside"));
+		lastroom = world.getRoom("outside");
 	}
 
 	/**
@@ -35,13 +42,14 @@ public class Game {
 	 */
 	public void play() {
 		printWelcome();
-
+		score = 0;
 		// Enter the main game loop. Here we repeatedly read commands and
 		// execute them until the game is over.
 		boolean wantToQuit = false;
 		while (!wantToQuit) {
 			Command command = Reader.getCommand();
 			wantToQuit = processCommand(command);
+			turns++;
 			// other stuff that needs to happen every turn can be added here.
 		}
 		printGoodbye();
@@ -64,14 +72,38 @@ public class Game {
 			Writer.println("I don't know what you mean...");
 		} else {
 
-			String commandWord = command.getCommandWord();
-			if (commandWord.equals("help")) {
+			CommandEnum commandWord = command.getCommandWord();
+			switch (commandWord) {
+			case HELP:
 				printHelp();
-			} else if (commandWord.equals("go")) {
+				break;
+			case GO:
 				goRoom(command);
-			} else if (commandWord.equals("quit")) {
+				break;
+			case QUIT:
 				wantToQuit = quit(command);
-			} else {
+				break;
+			case LOOK:
+				look(command);
+				break;
+			case STATUS:
+				Writer.println("The Player score is: " + score);
+				Writer.println("You are on turn: " + turns);
+				printLocationInformation(character.getCurrentRoom());
+				break;
+			case BACK:
+				Room back = character.getCurrentRoom();
+				character.setCurrentRoom(lastroom);
+				printLocationInformation(lastroom);
+				lastroom = back;
+				break;
+			case TURNS:
+				Writer.println("You are on turn: " + turns);
+				break;
+			case SCORE:
+				Writer.println("The Player score is: " + score);
+				break;
+			default:
 				Writer.println(commandWord + " is not implemented yet!");
 			}
 		}
@@ -81,6 +113,18 @@ public class Game {
 	///////////////////////////////////////////////////////////////////////////
 	// Helper methods for implementing all of the commands.
 	// It helps if you organize these in alphabetical order.
+
+	/*
+	 *  Prints out the location information.
+	 */
+	private void printLocationInformation(Room newRoom) {
+		Writer.println(character.getCurrentRoom().toString());
+	}
+	
+	
+	private void look(Command command) {
+		Writer.println("There is nothing around you");
+	}
 
 	/**
 	 * Try to go to one direction. If there is an exit, enter the new room,
@@ -99,39 +143,25 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = currentRoom.northExit;
+				doorway = character.getCurrentRoom().getNorthExit();
 			}
 			if (direction.equals("east")) {
-				doorway = currentRoom.eastExit;
+				doorway = character.getCurrentRoom().getEastExit();
 			}
 			if (direction.equals("south")) {
-				doorway = currentRoom.southExit;
+				doorway = character.getCurrentRoom().getSouthExit();
 			}
 			if (direction.equals("west")) {
-				doorway = currentRoom.westExit;
+				doorway = character.getCurrentRoom().getWestExit();
 			}
 
 			if (doorway == null) {
 				Writer.println("There is no door!");
 			} else {
+				lastroom = character.getCurrentRoom();
 				Room newRoom = doorway.getDestination();
-				currentRoom = newRoom;
-				Writer.println(newRoom.getName() + ":");
-				Writer.println("You are " + newRoom.getDescription());
-				Writer.print("Exits: ");
-				if (newRoom.northExit != null) {
-					Writer.print("north ");
-				}
-				if (newRoom.eastExit != null) {
-					Writer.print("east ");
-				}
-				if (newRoom.southExit != null) {
-					Writer.print("south ");
-				}
-				if (newRoom.westExit != null) {
-					Writer.print("west ");
-				}
-				Writer.println();
+				character.setCurrentRoom(newRoom);
+				printLocationInformation(newRoom);
 			}
 		}
 	}
@@ -153,7 +183,9 @@ public class Game {
 		Writer.println("around at the university.");
 		Writer.println();
 		Writer.println("Your command words are:");
-		Writer.println("   go quit help");
+		for (CommandEnum commandWord: CommandEnum.values()) {
+			Writer.print(commandWord.getCommand() + " ");
+		}
 	}
 
 	/**
@@ -165,22 +197,7 @@ public class Game {
 		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
 		Writer.println("Type 'help' if you need help.");
 		Writer.println();
-		Writer.println(currentRoom.getName() + ":");
-		Writer.println("You are " + currentRoom.getDescription());
-		Writer.print("Exits: ");
-		if (currentRoom.northExit != null) {
-			Writer.print("north ");
-		}
-		if (currentRoom.eastExit != null) {
-			Writer.print("east ");
-		}
-		if (currentRoom.southExit != null) {
-			Writer.print("south ");
-		}
-		if (currentRoom.westExit != null) {
-			Writer.print("west ");
-		}
-		Writer.println("");
+		printLocationInformation(character.getCurrentRoom());
 	}
 
 	/**
@@ -199,4 +216,5 @@ public class Game {
 		}
 		return wantToQuit;
 	}
+	
 }

@@ -23,14 +23,66 @@ public class Room {
 	private String description;
 
 	/** This room's north exit, null if none exits. */
-	public Door northExit;
+	private Door northExit;
 	/** This room's south exit, null if none exits. */
-	public Door southExit;
+	private Door southExit;
 	/** This room's east exit, null if none exits. */
-	public Door eastExit;
+	private Door eastExit;
 	/** This room's west exit, null if none exits. */
-	public Door westExit;
+	private Door westExit;
 
+	
+	public Door getNorthExit() {
+		return northExit;
+	}
+	
+	public void setNorthExit(Door northExit) {
+		this.northExit = northExit;
+	}
+	
+	public Door getEastExit() {
+		return eastExit;
+	}
+	
+	public void setEastExit(Door eastExit) {
+		this.eastExit = eastExit;
+	}
+	
+	public Door getSouthExit() {
+		return southExit;
+	}
+	
+	public void setSouthExit(Door southExit) {
+		this.southExit = southExit;
+	}
+	
+	public Door getWestExit() {
+		return westExit;
+	}
+	
+	public void setWestExit(Door westExit) {
+		this.westExit = westExit;
+	}
+	
+	public String toString() {
+		String retVal = getName() + ": " + getDescription() + "\n Exits: ";
+		if (getNorthExit() != null) {
+			retVal += "north ";
+		}
+		if (getEastExit() != null) {
+			retVal += "east ";
+		}
+		if (getSouthExit() != null) {
+			retVal += "south ";
+		}
+		if (getWestExit() != null) {
+			retVal += "west ";
+		}
+		return retVal + "\n";
+	}
+	
+	
+	
 	/**
 	 * Static initializer.
 	 */
@@ -68,6 +120,7 @@ public class Room {
 	public String getDescription() {
 		return description;
 	}
+	
 
 	/**
 	 * Returns the number of rooms that have been created in the world.
@@ -76,4 +129,5 @@ public class Room {
 	public static int getCounter() {
 		return counter;
 	}
+	
 }
