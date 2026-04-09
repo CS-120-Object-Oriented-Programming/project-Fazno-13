@@ -123,7 +123,7 @@ public class Game {
 	
 	
 	private void look(Command command) {
-		Writer.println("There is nothing around you");
+		Writer.println(character.getCurrentRoom().toString());
 	}
 
 	/**
@@ -143,16 +143,16 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = character.getCurrentRoom().getNorthExit();
+				doorway = character.getCurrentRoom().getExit(direction);
 			}
 			if (direction.equals("east")) {
-				doorway = character.getCurrentRoom().getEastExit();
+				doorway = character.getCurrentRoom().getExit(direction);
 			}
 			if (direction.equals("south")) {
-				doorway = character.getCurrentRoom().getSouthExit();
+				doorway = character.getCurrentRoom().getExit(direction);
 			}
 			if (direction.equals("west")) {
-				doorway = character.getCurrentRoom().getWestExit();
+				doorway = character.getCurrentRoom().getExit(direction);
 			}
 
 			if (doorway == null) {

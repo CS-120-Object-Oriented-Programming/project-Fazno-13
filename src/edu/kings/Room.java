@@ -1,4 +1,7 @@
 package edu.kings;
+
+import java.util.HashMap;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -21,62 +24,16 @@ public class Room {
 	private String name;
 	/** The description of this room. */
 	private String description;
-
-	/** This room's north exit, null if none exits. */
-	private Door northExit;
-	/** This room's south exit, null if none exits. */
-	private Door southExit;
-	/** This room's east exit, null if none exits. */
-	private Door eastExit;
-	/** This room's west exit, null if none exits. */
-	private Door westExit;
-
 	
-	public Door getNorthExit() {
-		return northExit;
-	}
-	
-	public void setNorthExit(Door northExit) {
-		this.northExit = northExit;
-	}
-	
-	public Door getEastExit() {
-		return eastExit;
-	}
-	
-	public void setEastExit(Door eastExit) {
-		this.eastExit = eastExit;
-	}
-	
-	public Door getSouthExit() {
-		return southExit;
-	}
-	
-	public void setSouthExit(Door southExit) {
-		this.southExit = southExit;
-	}
-	
-	public Door getWestExit() {
-		return westExit;
-	}
-	
-	public void setWestExit(Door westExit) {
-		this.westExit = westExit;
-	}
+	// Key is direction and Value is Door
+	// HashMap for all Doors
+	// Doors: North, South, East, West, Portal, Void
+	HashMap<String, Door> allDoors = new HashMap<>();
 	
 	public String toString() {
 		String retVal = getName() + ": " + getDescription() + "\n Exits: ";
-		if (getNorthExit() != null) {
-			retVal += "north ";
-		}
-		if (getEastExit() != null) {
-			retVal += "east ";
-		}
-		if (getSouthExit() != null) {
-			retVal += "south ";
-		}
-		if (getWestExit() != null) {
-			retVal += "west ";
+		for (String nextDoor: allDoors.keySet()) {
+			retVal += nextDoor + " ";
 		}
 		return retVal + "\n";
 	}
@@ -130,4 +87,18 @@ public class Room {
 		return counter;
 	}
 	
+	/** 
+	* Defines an exit from this room. 
+	* 
+	* @param direction The direction of the exit. 
+	* @param neighbor The door in the given direction. 
+	*/ 
+	
+	public void setExit(String direction, Door neighbor) {
+		allDoors.put(direction, neighbor);
+	}
+	
+	public Door getExit(String direction) {
+		return allDoors.get(direction);
+	}
 }
