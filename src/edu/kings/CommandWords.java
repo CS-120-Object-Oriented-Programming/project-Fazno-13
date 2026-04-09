@@ -1,4 +1,5 @@
 package edu.kings;
+
 /**
  * This class is part of the "Campus of Kings" application. "Campus of Kings" is a
  * very simple, text based adventure game.
@@ -14,15 +15,12 @@ package edu.kings;
 
 public class CommandWords {
 	/** A constant array that holds all valid command words. */
-	private static String[] validCommands;
+	private static CommandEnum[] validCommands = {CommandEnum.GO, CommandEnum.HELP, CommandEnum.QUIT, CommandEnum.LOOK,
+			CommandEnum.STATUS, CommandEnum.BACK,CommandEnum.TURNS,CommandEnum.SCORE};
 
 	/**
 	 * Static block to initialize the fields of CommandWords.
 	 */
-	static {
-		String[] tempCommands = {"go", "quit", "help" };
-		validCommands = tempCommands;
-	}
 
 	/**
 	 * Check whether a given String is a valid command word.
@@ -30,11 +28,11 @@ public class CommandWords {
 	 * @param aString The string to determine whether it is a valid command.
 	 * @return true if a given string is a valid command, false if it isn't.
 	 */
-	public static boolean isCommand(String aString) {
+	public static boolean isCommand(CommandEnum aCommandEnum) {
 		boolean valid = false;
 		int index = 0;
 		while (!valid && index < validCommands.length) {
-			if (validCommands[index].equals(aString)) {
+			if (validCommands[index].equals(aCommandEnum)) {
 				valid = true;
 			}
 			index++;
@@ -42,4 +40,35 @@ public class CommandWords {
 		// if we get here, the string was not found in the commands
 		return valid;
 	}
+	
+	/** 
+	* Converts a String into a CommandEnum object. 
+	* 
+	* @param theString The String containing the command word. 
+	* @return The CommandEnum object representing the command, or null if 
+	*		  the command does not exist.
+	*/ 
+	public static CommandEnum getCommand(String theString) {
+		switch(theString) {
+		case ("go"):
+			return CommandEnum.GO;
+		case ("help"):
+			return CommandEnum.HELP;
+		case ("look"):
+			return CommandEnum.LOOK;
+		case ("back"):
+			return CommandEnum.BACK;
+		case ("status"):
+			return CommandEnum.STATUS;
+		case ("quit"):
+			return CommandEnum.QUIT;
+		case ("score"):
+			return CommandEnum.SCORE;
+		case ("turns"):
+			return CommandEnum.TURNS;
+		default:
+			return null;
+		}
+	}
 }
+	
