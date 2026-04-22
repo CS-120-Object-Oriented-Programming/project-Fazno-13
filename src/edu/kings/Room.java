@@ -1,6 +1,8 @@
 package edu.kings;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class Room - a room in an adventure game.
@@ -30,14 +32,20 @@ public class Room {
 	// Doors: North, South, East, West, Portal, Void
 	HashMap<String, Door> allDoors = new HashMap<>();
 	
+	// A list of items in that room
+	ArrayList <Item> itemsInRoom = new ArrayList<>();
+	
 	public String toString() {
 		String retVal = getName() + ": " + getDescription() + "\n Exits: ";
 		for (String nextDoor: allDoors.keySet()) {
 			retVal += nextDoor + " ";
 		}
+		retVal += "\nItems: ";
+		for (int i=0; i< itemsInRoom.size(); i++) {
+			retVal += itemsInRoom.get(i).toString() + " ";
+		}
 		return retVal + "\n";
 	}
-	
 	
 	
 	/**
@@ -100,5 +108,24 @@ public class Room {
 	
 	public Door getExit(String direction) {
 		return allDoors.get(direction);
+	}
+	
+	
+	// make a list, add item to list, remove from list and add to inventory, 
+	public void addItem(Item newItem) {
+		itemsInRoom.add(newItem);
+	}
+	
+	public ArrayList<Item> getItem() {
+		return itemsInRoom;
+	}
+	
+	public Item removeItem(String itemName) {
+		for (int i=0;  i < itemsInRoom.size(); i++) {
+			if (itemsInRoom.get(i).getName() == itemName) {
+				itemsInRoom.remove(i);
+				return itemsInRoom.get(i);
+			}
+		} return null;
 	}
 }

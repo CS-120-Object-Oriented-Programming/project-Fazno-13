@@ -1,4 +1,6 @@
 package edu.kings;
+
+import java.util.ArrayList;
 /**
  * This class is the main class of the "Campus of Kings" application.
  * "Campus of Kings" is a very simple, text based adventure game. Users can walk
@@ -26,6 +28,7 @@ public class Game {
 	private int turns;
 	/** Tracks the last room the player is in */
 	private Room lastroom;
+	private ArrayList<Item> item;
 	
 	/**
 	 * Create the game and initialize its internal map.
@@ -33,7 +36,7 @@ public class Game {
 	public Game() {
 		world = new World();
 		// set the starting room
-		character = new Player(world.getRoom("outside"));
+		character = new Player(world.getRoom("outside"), new ArrayList<>());
 		lastroom = world.getRoom("outside");
 	}
 
@@ -103,13 +106,26 @@ public class Game {
 			case SCORE:
 				Writer.println("The Player score is: " + score);
 				break;
+			case EXAMINE:
+				examineItem(command);
+				break;
+			case TAKE:
+				takeItem(command);
+				break;
+			case DROP:
+				dropItem(command);
+				break;
+			case INVENTORY:
+				myInventory();
+				break;
 			default:
 				Writer.println(commandWord + " is not implemented yet!");
+				
 			}
 		}
 		return wantToQuit;
 	}
-
+	
 	///////////////////////////////////////////////////////////////////////////
 	// Helper methods for implementing all of the commands.
 	// It helps if you organize these in alphabetical order.
@@ -216,5 +232,70 @@ public class Game {
 		}
 		return wantToQuit;
 	}
+	
+	private void examineItem(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Examine what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i=0; i < character.getCurrentRoom().getItem().size(); i++) {
+				if (character.getCurrentRoom().getItem().get(i).getName().equals(theItem)) {
+					Writer.println(character.getCurrentRoom().getItem().get(i).toString());
+					val = true;
+				}
+			}
+			for (int index = 0; index < character.getInventory().size(); index++) {
+				if (character.getInventory().get(index).getName().equals(theItem)) {
+					Writer.println(character.getInventory().get(index).getDescription());
+					val = true;
+				}
+			} if (val == false) {
+				Writer.println("There is no such item. ");
+			}
+		}
+	}
+	
+	private void takeItem(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Take what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i=0; i < character.getCurrentRoom().getItem().size(); i++) {
+				if (character.getCurrentRoom().getItem().get(i).getName().equals(theItem)) {
+					character.setInventory(character.getCurrentRoom().getItem().get(i));
+					character.getCurrentRoom().getItem().remove(i);
+					val = true;
+				}
+			} if (val == false) {
+				Writer.println("There is no shuch item. ");
+			}
+		}
+	}
+	
+	private void dropItem(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Drop what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i=0; i < character.getInventory().size(); i++) {
+				if (character.getInventory().get(i).getName().equals(theItem)) {
+					character.getCurrentRoom().getItem().add(character.getInventory().get(i));
+					Writer.println("you dropped " + character.getInventory().get(i));
+					character.getInventory().remove(i);
+					val = true;
+				}
+			} if (val == false) {
+				Writer.println("You do not have this item. ");
+			}
+		}
+	}
+	
+	private void myInventory() {
+		Writer.println(character.getInventory());
+	}
+
 	
 }

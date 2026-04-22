@@ -1,4 +1,5 @@
 package edu.kings;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -17,6 +18,7 @@ import java.util.HashMap;
 public class World {
 	/** The rooms in the world. */
 	private HashMap<String, Room> rooms;
+	private ArrayList<Item> items = new ArrayList<>();
 
 	/**
 	 * Constructor for the world.
@@ -57,6 +59,10 @@ public class World {
 		rooms.get(roomOne.getName().toLowerCase()).allDoors.put(direction,aDoor);
 	}
 
+	private Item createItem(Item newItem) {
+		return newItem;
+	}
+	
 	/**
 	 * This method creates all of the individual places in this world and all
 	 * the doors connecting them.
@@ -108,5 +114,9 @@ public class World {
 
 		createDoor(lab, "south", classroom);
 		createDoor(classroom, "north", lab);
+		
+		// Adding all the items to their rooms
+		
+		outside.addItem(createItem(new Item("essef key",0,0, "The key to essef")));
 	}
 }
