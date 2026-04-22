@@ -1,0 +1,20 @@
+
+Welcome to the Campus of Kings!
+Campus of Kings is a new, incredibly boring adventure game.
+Type 'help' if you need help.
+
+Outside: outside in the center of the King's College campus.
+ Exits: east south north west 
+Items: essef key: The key to essef
+ 
+
+> take
+Take what? 
+> take key
+There is no shuch item. 
+> take essef key
+Succsessfuly pick up essef key. 
+> inventory
+[essef key: The key to essef
+]
+> 
