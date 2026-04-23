@@ -18,7 +18,8 @@ public class CommandWords {
 	private static CommandEnum[] validCommands = 
 		{CommandEnum.GO, CommandEnum.HELP, CommandEnum.QUIT, CommandEnum.LOOK,
 		CommandEnum.STATUS, CommandEnum.BACK, CommandEnum.TURNS, CommandEnum.SCORE, 
-		CommandEnum.EXAMINE, CommandEnum.TAKE, CommandEnum.DROP, CommandEnum.INVENTORY};
+		CommandEnum.EXAMINE, CommandEnum.TAKE, CommandEnum.DROP, CommandEnum.INVENTORY,
+		CommandEnum.UNLOCK, CommandEnum.LOCK, CommandEnum.PACK, CommandEnum.UNPACK};
 
 	/**
 	 * Static block to initialize the fields of CommandWords.
@@ -76,6 +77,14 @@ public class CommandWords {
 			return CommandEnum.DROP;
 		case ("inventory"):
 			return CommandEnum.INVENTORY;
+		case ("unlock"):
+			return CommandEnum.UNLOCK;
+		case ("lock"):
+			return CommandEnum.LOCK;
+		case ("pack"):
+			return CommandEnum.PACK;
+		case ("unpack"):
+			return CommandEnum.UNPACK;
 		default:
 			return null;
 		}

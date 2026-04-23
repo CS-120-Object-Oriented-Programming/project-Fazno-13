@@ -12,7 +12,11 @@ public enum CommandEnum {
 	EXAMINE("examine"),
 	TAKE("take"),
 	DROP("drop"),
-	INVENTORY ("inventory");
+	INVENTORY ("inventory"),
+	UNLOCK ("unlock"),
+	LOCK ("lock"),
+	PACK ("pack"),
+	UNPACK("unpack");
 	
 	private final String word;
 	

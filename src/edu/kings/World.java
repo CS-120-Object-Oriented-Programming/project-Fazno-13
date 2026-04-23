@@ -54,13 +54,20 @@ public class World {
 		rooms.put(theRoom.getName().toLowerCase(), theRoom);
 	}
 
-	private void createDoor(Room roomOne, String direction, Room roomTwo) {
-		Door aDoor = new Door(roomTwo);
+	private void createDoor(Room roomOne, String direction, String theKey, Room roomTwo) {
+		Door aDoor = new Door(roomTwo, theKey);
+		if (theKey != null) {
+			aDoor.setLocked(true);
+		}
 		rooms.get(roomOne.getName().toLowerCase()).allDoors.put(direction,aDoor);
 	}
 
 	private Item createItem(Item newItem) {
 		return newItem;
+	}
+	
+	private Container createContainer(Container container) {
+		return container;
 	}
 	
 	/**
@@ -91,32 +98,34 @@ public class World {
 		this.addRoom(classroom);
 
 		// Creating all the doors between the rooms.
-		createDoor(essef, "south", outside);
-		createDoor(outside, "north", essef);
+		createDoor(essef, "south", null, outside);
+		createDoor(outside, "north", "essef key", essef);
 
-		createDoor(campusCenter, "east", outside);
-		createDoor(outside, "west", campusCenter);
+		createDoor(campusCenter, "east", null, outside);
+		createDoor(outside, "west", null, campusCenter);
 
-		createDoor(outside, "east", holyCross);
-		createDoor(holyCross, "west", outside);
+		createDoor(outside, "east", null, holyCross);
+		createDoor(holyCross, "west", null, outside);
 
-		createDoor(outside, "south", admin);
-		createDoor(admin, "north", outside);
+		createDoor(outside, "south", null, admin);
+		createDoor(admin, "north", null, outside);
 
-		createDoor(admin, "east", lab);
-		createDoor(lab, "west", admin);
+		createDoor(admin, "east", null, lab);
+		createDoor(lab, "west", null, admin);
 
-		createDoor(admin, "south", janoskiOffice);
-		createDoor(janoskiOffice, "north", admin);
+		createDoor(admin, "south", null,  janoskiOffice);
+		createDoor(janoskiOffice, "north", null, admin);
 
-		createDoor(admin, "west", slivaOffice);
-		createDoor(slivaOffice, "east", admin);
+		createDoor(admin, "west", null, slivaOffice);
+		createDoor(slivaOffice, "east", null, admin);
 
-		createDoor(lab, "south", classroom);
-		createDoor(classroom, "north", lab);
+		createDoor(lab, "south", null, classroom);
+		createDoor(classroom, "north", null, lab);
 		
 		// Adding all the items to their rooms
 		
 		outside.addItem(createItem(new Item("essef key",0,0, "The key to essef")));
+		items.add(new Item("key", 0, 0, "a random key"));
+		outside.addItem(createContainer(new Container("box", 0, 1, "a random box", items)));
 	}
 }

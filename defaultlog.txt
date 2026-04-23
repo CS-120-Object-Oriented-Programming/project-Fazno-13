@@ -6,15 +6,8 @@ Type 'help' if you need help.
 Outside: outside in the center of the King's College campus.
  Exits: east south north west 
 Items: essef key: The key to essef
- 
+ box: a random box
+The box has: [key: a random key
+] 
 
-> take
-Take what? 
-> take key
-There is no shuch item. 
-> take essef key
-Succsessfuly pick up essef key. 
-> inventory
-[essef key: The key to essef
-]
 > 
