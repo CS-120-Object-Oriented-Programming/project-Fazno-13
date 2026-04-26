@@ -1,13 +1,13 @@
 
-Welcome to the Campus of Kings!
-Campus of Kings is a new, incredibly boring adventure game.
+Welcome to The Aethereal Academy!
+
+Your name is Avalon. It’s his first day at Aethereal Academy
+and you just woke up late for your first class. Make sure to grab all
+to grab all your stuff so you can graduate and become one of the best Wizards..
 Type 'help' if you need help.
 
-Outside: outside in the center of the King's College campus.
- Exits: east south north west 
-Items: essef key: The key to essef
- box: a random box
-The box has: [key: a random key
-] 
+Dorm Room #3 (Yours): This is your dorm room
+ Exits: exit 
+Items: Wizard ID: This is your ID to enter buildings Note: This is a note from your roommate 
 
 > 
