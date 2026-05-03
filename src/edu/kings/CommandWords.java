@@ -19,7 +19,8 @@ public class CommandWords {
 		{CommandEnum.GO, CommandEnum.HELP, CommandEnum.QUIT, CommandEnum.LOOK,
 		CommandEnum.STATUS, CommandEnum.BACK, CommandEnum.TURNS, CommandEnum.SCORE, 
 		CommandEnum.EXAMINE, CommandEnum.TAKE, CommandEnum.DROP, CommandEnum.INVENTORY,
-		CommandEnum.UNLOCK, CommandEnum.LOCK, CommandEnum.PACK, CommandEnum.UNPACK};
+		CommandEnum.UNLOCK, CommandEnum.LOCK, CommandEnum.PACK, CommandEnum.UNPACK,
+		CommandEnum.CAST, CommandEnum.TALK, CommandEnum.TRUE, CommandEnum.FALSE};
 
 	/**
 	 * Static block to initialize the fields of CommandWords.
@@ -85,6 +86,14 @@ public class CommandWords {
 			return CommandEnum.PACK;
 		case ("unpack"):
 			return CommandEnum.UNPACK;
+		case ("cast"):
+			return CommandEnum.CAST;
+		case ("talk"):
+			return CommandEnum.TALK;
+		case ("true"):
+			return CommandEnum.TRUE;
+		case ("false"):
+			return CommandEnum.FALSE;
 		default:
 			return null;
 		}

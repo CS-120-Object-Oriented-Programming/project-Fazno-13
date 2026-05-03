@@ -16,7 +16,11 @@ public enum CommandEnum {
 	UNLOCK ("unlock"),
 	LOCK ("lock"),
 	PACK ("pack"),
-	UNPACK("unpack");
+	UNPACK("unpack"),
+	CAST("cast"),
+	TALK("talk"),
+	TRUE("true"),
+	FALSE("false");
 	
 	private final String word;
 	

@@ -35,7 +35,7 @@ public class Item {
 	}
 	
 	public String toString() {
-		String retVal = getName() + ": " + getDescription();
+		String retVal = getName() + ", ";
 		return retVal;
 	}
 }

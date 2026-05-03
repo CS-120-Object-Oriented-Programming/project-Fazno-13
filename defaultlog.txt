@@ -7,7 +7,53 @@ to grab all your stuff so you can graduate and become one of the best Wizards..
 Type 'help' if you need help.
 
 Dorm Room #3 (Yours): This is your dorm room
- Exits: exit 
-Items: Wizard ID: This is your ID to enter buildings Note: This is a note from your roommate 
+Exits: exit 
+NPCs: noah,  orion,  zephiron,  merlin,  demetrius,  
+Items: wizard id,  roommate note,  bed,  candle,  bird,  bag,  wand,  roof key,  
+tree: a random tree 
+
+> take bag
+Succsessfuly pick up bag. 
+> take wizard id
+Succsessfuly pick up wizard id. 
+> go exit
+Dorms (inside): This is where you and your fellow classmates sleep and hang out
+Exits: room 106 exit room 107 room 104 room 105 room 108 room 102 room 103 room 101 
+NPCs: 
+Items: 
+
+> go exit
+Dorms (outside): This is where you live in the Academy
+Exits: east south north enter 
+NPCs: 
+Items: 
+
+> go south
+Demetrius Hall (outside): This is the third place you will learn a spell. The earth spells.
+Exits: east north enter 
+NPCs: 
+Items: 
+
+> unlock enter
+Which key? 
+wizard id
+The door has been unlocked. 
+> go enter
+Demetrius Hall (inside): There are several of classrooms and students learning about earth
+Exits: room 106 exit room 107 room 104 room 105 room 108 room 102 room 103 room 101 
+NPCs: 
+Items: 
+
+> go room 104
+Demetrius Room #4: This is a class room
+Exits: exit 
+NPCs: demetrius,  demetrius,  demetrius,  demetrius,  demetrius,  demetrius,  demetrius,  
+Items: demetrius note,  
+
+> look
+Demetrius Room #4: This is a class room
+Exits: exit 
+NPCs: demetrius,  demetrius,  demetrius,  demetrius,  demetrius,  demetrius,  demetrius,  demetrius,  
+Items: demetrius note,  
 
 > 

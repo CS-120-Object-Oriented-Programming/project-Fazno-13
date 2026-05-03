@@ -1,6 +1,8 @@
 package edu.kings;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * This class is the main class of the "Campus of Kings" application.
  * "Campus of Kings" is a very simple, text based adventure game. Users can walk
@@ -23,12 +25,20 @@ public class Game {
 	private World world;
 	/** This is a field that stores	the	character controlled by	the	player */
 	private Player character;
-	/** Adds the Score and number of turns */
-	private int score;
-	private int turns;
 	/** Tracks the last room the player is in */
 	private Room lastroom;
 	private ArrayList<Item> item;
+	
+	private int energyCount = 0;
+	private boolean energyWarning = true;
+	private int socialCount = 0;
+	private boolean socialWarning = true;
+	
+	Spell fireSpell = Spell.FIRE;
+	Spell waterSpell = Spell.WATER;
+	Spell earthSpell = Spell.EARTH;
+	Spell windSpell = Spell.WIND;
+	Spell darkSpell = Spell.DARK;
 	
 	/**
 	 * Create the game and initialize its internal map.
@@ -36,7 +46,7 @@ public class Game {
 	public Game() {
 		world = new World();
 		// set the starting room
-		character = new Player(world.getRoom("Dorm Room #3 (Yours)"), new ArrayList<>());
+		character = new Player(world.getRoom("Dorm Room #3 (Yours)"), new ArrayList<>(),false);
 		lastroom = world.getRoom("Dorm Room #3 (Yours)");
 	}
 
@@ -45,15 +55,37 @@ public class Game {
 	 */
 	public void play() {
 		printWelcome();
-		score = 0;
+		character.setScore(0);
 		// Enter the main game loop. Here we repeatedly read commands and
 		// execute them until the game is over.
 		boolean wantToQuit = false;
 		while (!wantToQuit) {
 			Command command = Reader.getCommand();
 			wantToQuit = processCommand(command);
-			turns++;
-			// other stuff that needs to happen every turn can be added here.
+			// Actions that happen every turn
+			character.setTurns(character.getTurns()+1);
+			socialCount ++;
+			energyCount ++;
+			if (socialCount%7 == 0) {
+				character.setSocial(character.getSocial()-1);
+				socialWarning = true;
+			}
+			if (energyCount%7 == 0) {
+				character.setEnergy(character.getEnergy()-1);
+				energyWarning = true;
+			}
+			//Gives warning once per cycle
+			if (energyWarning && character.getSocial() == 6) {
+				Writer.println("\nYou are getting a call from your roommate:");
+				Writer.println("Hey dude, haven't heard about you in a bit. Hope all is well");
+				energyWarning = false;
+			}
+			if (socialWarning && character.getEnergy() == 6) {
+				Writer.println("\nYou begin to feel sleepy and your tummy grumbles");
+				socialWarning = false;
+			}
+			wantToQuit = processStatus();
+			
 		}
 		printGoodbye();
 	}
@@ -90,9 +122,7 @@ public class Game {
 				look(command);
 				break;
 			case STATUS:
-				Writer.println("The Player score is: " + score);
-				Writer.println("You are on turn: " + turns);
-				printLocationInformation(character.getCurrentRoom());
+				status();
 				break;
 			case BACK:
 				Room back = character.getCurrentRoom();
@@ -101,10 +131,10 @@ public class Game {
 				lastroom = back;
 				break;
 			case TURNS:
-				Writer.println("You are on turn: " + turns);
+				Writer.println("You are on turn: " + character.getTurns());
 				break;
 			case SCORE:
-				Writer.println("The Player score is: " + score);
+				Writer.println("The Player score is: " + character.getScore());
 				break;
 			case EXAMINE:
 				examineItem(command);
@@ -130,6 +160,16 @@ public class Game {
 			case UNPACK:
 				unPack(command);
 				break;
+			case CAST:
+				spell(command);
+				break;
+			case TALK:
+				talk(command);
+				break;
+			case TRUE:
+			case FALSE:
+				Writer.println("I do not understand");
+				break;
 			default:
 				Writer.println(commandWord + " is not implemented yet!");
 				
@@ -149,6 +189,13 @@ public class Game {
 		Writer.println(character.getCurrentRoom().toString());
 	}
 	
+	private void status() {
+		Writer.println("The Player score is: " + character.getScore());
+		Writer.println("You are on turn: " + character.getTurns());
+		Writer.println("Energy: " + character.getEnergy() + "/" + character.getMaxEnergy());
+		Writer.println("Social: " + character.getSocial() + "/" + character.getMaxSocial());
+		printLocationInformation(character.getCurrentRoom());
+	}
 	
 	private void look(Command command) {
 		Writer.println(character.getCurrentRoom().toString());
@@ -311,6 +358,16 @@ public class Game {
 					val = true;
 				}
 			}
+			if (direction.equals("roof")) {
+				if (character.getCurrentRoom().getExit(direction) == null) {
+				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+					doorway = character.getCurrentRoom().getExit(direction);
+					val = true;
+				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+					Writer.println("The door is locked.");
+					val = true;
+				}
+			}
 
 			if (doorway == null) {
 				if (val == false) {
@@ -331,6 +388,8 @@ public class Game {
 	private void printGoodbye() {
 		Writer.println("I hope you had fun with my game!");
 		Writer.println("Thank you for playing.  Good bye.");
+		Writer.println("\nFinal Score: " + character.getScore());
+		Writer.println("Total Moves: " + character.getTurns());
 	}
 
 	/**
@@ -386,7 +445,35 @@ public class Game {
 			String theItem = command.getRestOfLine();
 			for (int i=0; i < character.getCurrentRoom().getItem().size(); i++) {
 				if (character.getCurrentRoom().getItem().get(i).getName().equals(theItem)) {
-					Writer.println(character.getCurrentRoom().getItem().get(i).toString());
+					Writer.println(character.getCurrentRoom().getItem().get(i).getDescription());
+					val = true;
+				}
+				if (character.getCurrentRoom().getItem().get(i).getName().equals("bed")) {
+					Writer.println("Avalon takes a nap to restore his energy");
+					character.setEnergy(character.getMaxEnergy());
+					energyCount = 0;
+					energyWarning= true;
+					val = true;
+				}
+				if (character.getCurrentRoom().getItem().get(i).getName().equals("taco cart")) {
+					Writer.println("Avalon eats a taco to restore his energy");
+					character.setEnergy(character.getMaxEnergy());
+					energyCount = 0;
+					energyWarning= true;
+					val = true;
+				}
+				if (character.getCurrentRoom().getItem().get(i).getName().equals("sandwich shop")) {
+					Writer.println("Avalon eats a sandwich to restore his energy");
+					character.setEnergy(character.getMaxEnergy());
+					energyCount = 0;
+					energyWarning= true;
+					val = true;
+				}
+				if (character.getCurrentRoom().getItem().get(i).getName().equals("apple tree")) {
+					Writer.println("Avalon eats an apple to restore his energy");
+					character.setEnergy(character.getMaxEnergy());
+					energyCount = 0;
+					energyWarning= true;
 					val = true;
 				}
 			}
@@ -403,21 +490,35 @@ public class Game {
 	
 	private void takeItem(Command command) {
 		Boolean val = false;
+		int index = 0;
 		if (!command.hasSecondWord()) {
 			Writer.println("Take what? ");
 		} else {
 			String theItem = command.getRestOfLine();
 			for (int i=0; i < character.getCurrentRoom().getItem().size(); i++) {
 				if (character.getCurrentRoom().getItem().get(i).getName().equals(theItem)) {
-					character.setInventory(character.getCurrentRoom().getItem().get(i));
-					character.getCurrentRoom().getItem().remove(i);
+					index = i;
 					val = true;
+					if (character.getCurrentRoom().getItem().get(i).getName().equals("bag")) {
+						character.setBag(true);
+					}
 				}
-			} if (val == false) {
+				
+			} 
+			if (character.isBag() && val) {
+				character.setInventory(character.getCurrentRoom().getItem().get(index));
+				character.getCurrentRoom().getItem().remove(index);
+			} else
+			if (val == false) {
 				Writer.println("There is no such item. ");
+			}
+			if (!character.isBag()) {
+				Writer.println("You do not have a bag. ");
 			}
 		}
 	}
+	
+	
 	
 	private void dropItem(Command command) {
 		Boolean val = false;
@@ -506,6 +607,7 @@ public class Game {
 		}
 	}
 	
+	//ONLY FOR STATUE
 	private void pack(Command command) {
 		if(!command.hasSecondWord()) {
 			Writer.println("Pack what? ");
@@ -559,7 +661,6 @@ public class Game {
 		} else {
 			String container = command.getRestOfLine();
 			boolean val = false;
-			
 			for (int i = 0; i < character.getCurrentRoom().getItem().size(); i++ ) {
 				if (character.getCurrentRoom().getItem().get(i).getName().equals(container)) {
 					if(character.getCurrentRoom().getItem().get(i) instanceof Container == true) {
@@ -587,4 +688,406 @@ public class Game {
 		}
 	}
 	
+	public void spell(Command command) {
+		if (character.canCast()) {
+			Boolean val = false;
+			if (!command.hasSecondWord()) {
+				Writer.println("Cast what? ");
+			} else {
+				String theItem = command.getRestOfLine();
+				Writer.println(theItem);
+				if (theItem.equals("fire")) {
+					if (fireSpell.isAble()) {
+						//Execute Fire Spell
+						Writer.println("Use spell on what? ");
+						String theAnswer = Reader.getResponse();
+						for(int i = 0; i < character.getCurrentRoom().getItem().size(); i++) {
+							if (character.getCurrentRoom().getItem().get(i).getName().equals(theAnswer)) {
+								if(character.getCurrentRoom().getItem().get(i) instanceof Container == true) {
+									for (int x = 0; x < ((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().size(); x++) {
+										if (((Container)character.getCurrentRoom().getItem().get(i)).getKey().equals("fire scroll")) {
+											character.setInventory(((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().get(x));
+											((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().remove(x);
+											Writer.println("You have used your spell");
+										}
+										val = true;
+									}
+								} else {
+									Writer.println("Not able to use spell");
+									val = true;
+								}
+							} 
+						} 
+					}
+				}
+				if (theItem.equals("water")) {
+					if (waterSpell.isAble()) {
+						//Execute Water Spell
+						Writer.println("Use spell on what? ");
+						String theAnswer = Reader.getResponse();
+						for(int i = 0; i < character.getCurrentRoom().getItem().size(); i++) {
+							if (character.getCurrentRoom().getItem().get(i).getName().equals(theAnswer)) {
+								if(character.getCurrentRoom().getItem().get(i) instanceof Container == true) {
+									for (int x = 0; x < ((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().size(); x++) {
+										if (((Container)character.getCurrentRoom().getItem().get(i)).getKey().equals("water scroll")) {
+											character.setInventory(((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().get(x));
+											((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().remove(x);
+											Writer.println("You have used your spell");
+										}
+										val = true;
+									}
+								} else {
+									Writer.println("Not able to use spell");
+									val = true;
+								}
+							} 
+						} 
+					}
+				}	
+				if (theItem.equals("earth")) {
+					if (earthSpell.isAble()) {
+						//Execute Earth Spell
+						Writer.println("Use spell on what? ");
+						String theAnswer = Reader.getResponse();
+						for(int i = 0; i < character.getCurrentRoom().getItem().size(); i++) {
+							if (character.getCurrentRoom().getItem().get(i).getName().equals(theAnswer)) {
+								if(character.getCurrentRoom().getItem().get(i) instanceof Container == true) {
+									for (int x = 0; x < ((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().size(); x++) {
+										if (((Container)character.getCurrentRoom().getItem().get(i)).getKey().equals("earth scroll")) {
+											character.setInventory(((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().get(x));
+											((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().remove(x);
+											Writer.println("You have used your spell");
+										}
+										val = true;
+									}
+								} else {
+									Writer.println("Not able to use spell");
+									val = true;
+								}
+							} 
+						} 
+					}
+				}
+				if (theItem.equals("wind")) {
+					windSpell.setAble();
+					if (fireSpell.isAble()) {
+						//Execute Wind Spell
+						Writer.println("Use spell on what? ");
+						String theAnswer = Reader.getResponse();
+						for(int i = 0; i < character.getCurrentRoom().getItem().size(); i++) {
+							if (character.getCurrentRoom().getItem().get(i).getName().equals(theAnswer)) {
+								if(character.getCurrentRoom().getItem().get(i) instanceof Container == true) {
+									for (int x = 0; x < ((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().size(); x++) {
+										if (((Container)character.getCurrentRoom().getItem().get(i)).getKey().equals("wind scroll")) {
+											character.setInventory(((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().get(x));
+											((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().remove(x);
+											Writer.println("You have used your spell");
+										}
+										val = true;
+									}
+								} else {
+									Writer.println("Not able to use spell");
+									val = true;
+								}
+							} 
+						} 
+					}
+				} 
+				if (theItem.equals("dark")) {
+					if (darkSpell.isAble()) {
+						//Execute Water Spell
+						Writer.println("Use spell on what? ");
+						String theAnswer = Reader.getResponse();
+						for(int i = 0; i < character.getCurrentRoom().getItem().size(); i++) {
+							if (character.getCurrentRoom().getItem().get(i).getName().equals(theAnswer)) {
+								if(character.getCurrentRoom().getItem().get(i) instanceof Container == true) {
+									for (int x = 0; x < ((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().size(); x++) {
+										if (((Container)character.getCurrentRoom().getItem().get(i)).getKey().equals("dark scroll")) {
+											character.setInventory(((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().get(x));
+											((Container)character.getCurrentRoom().getItem().get(i)).getContainerInventory().remove(x);
+											Writer.println("You have used your spell");
+										}
+										val = true;
+									}
+								} else {
+									Writer.println("Not able to use spell");
+									val = true;
+								}
+							} 
+						} 
+					}
+				}
+				if (val == false) {
+					Writer.println("You do not have that spell. ");
+				}
+			}
+		} else {
+			Writer.println("You do not have a wand to cast. ");
+		}
+	}
+	
+	private void talk(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Talk to who? ");
+		} else {
+			String theNPC = command.getRestOfLine();
+			for (int i=0; i < character.getCurrentRoom().getNPC().size(); i++) {
+				if (character.getCurrentRoom().getNPC().get(i).getName().equals(theNPC)) {
+					//Run NPC Command based on name
+					//If basic name; ask question
+					//If teacher; specific text
+					//***Test SCROLLS***
+					if (character.getCurrentRoom().getNPC().get(i) instanceof Orion) {
+						//Orion Tasks
+						int x = character.getCurrentRoom().getNPC().get(i).getProgress();
+						if (character.getSocial() <= 2) {
+							x = 4;
+						}
+						switch(x) {
+						case 0:
+							if (character.canCast()) {
+								Writer.println("Hi, when you are ready to learn bring me a candle");
+								character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+							} else {
+								Writer.println("How will you learn without a wand?");
+							}
+							break;
+						case 1:
+							for (int index=0; index < character.getInventory().size(); index++) {
+								if (character.getInventory().get(index).getName().equals("candle")) {
+									Writer.println("You gave " + character.getInventory().get(index) + "to Orion");
+									character.getInventory().remove(index);
+									Writer.println("Talk to him again to learn the ways of Fire");
+									character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+									val = true;
+								}
+							} if (val == false) {
+								Writer.println("You do not have a candle. ");
+							}
+							break;
+						case 2:
+							Writer.println("You now know the ways of Fire");
+							fireSpell.setAble();
+							character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+							break;
+						case 3:
+							Writer.println("Have fun knowing the ways of fire");
+							break;
+						default:
+							Writer.println("...");
+							
+						}
+					} else if (character.getCurrentRoom().getNPC().get(i) instanceof Merlin) {
+						//Merlin Tasks
+						int x = character.getCurrentRoom().getNPC().get(i).getProgress();
+						if (character.getSocial() <= 2) {
+							x = 4;
+						}
+						switch(x) {
+						case 0:
+							Writer.println("Hello, I just need to make sure you have the fire spell...");
+							if (fireSpell.isAble()) {
+								Writer.println("You do have the spell! Let's talk when you are ready");
+								character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+							} else {
+								Writer.println("You do not so, go find Orion.");
+							}
+							break;
+						case 1:
+							Writer.println("To teach you the ways of water, we must find a place with water");
+							Writer.println("Meet me by the foutain to learn the ways of water");
+							//Move Merlin
+							world.getRoom("courtyard").npcsInRoom.add(new Merlin("merlin","The Water Wizard",2));
+							character.getCurrentRoom().getNPC().remove(i);
+							Writer.println("Merlin walked away...");
+							//
+							break;
+						case 2:
+							waterSpell.setAble();
+							Writer.println("Merlin teaches you the ways of water with the water in the foutain");
+							Writer.println("Now, go forth and take your knowlege to learn from Demetrius");
+							character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+							break;
+						case 3:
+							Writer.println("Have fun knowing the ways of water");
+							break;
+						default:
+							Writer.println("...");
+						}
+					} else if (character.getCurrentRoom().getNPC().get(i) instanceof Demetrius) {
+						//Demetrius Tasks
+						int x = character.getCurrentRoom().getNPC().get(i).getProgress();
+						if (character.getSocial() <= 2) {
+							x = 4;
+						}
+						switch(x) {
+						case 0:
+							Writer.println("Hey dude, you know the water spell from Merlin right?");
+							if (waterSpell.isAble()) {
+								Writer.println("You do know it! Great! Let's talk when you are ready dude!");
+								character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+							} else {
+								Writer.println("Dude, go find Merlin, then come back here");
+							}
+							break;
+						case 1:
+							Writer.println("To teach you the ways of earth, you must find peace");
+							if (character.getEnergy() == 10) {
+								Writer.println("I can tell you are at peace with yourself");
+								Writer.println("Meet me back in class and I will teach you some stuff dude!");
+								//Move Demetrius
+								world.getRoom("Demetrius Room #4").npcsInRoom.add(new Demetrius("demetrius","The Earth Wizard",2));
+								character.getCurrentRoom().getNPC().remove(i);
+								Writer.println("Demetrius walked away...");
+								//
+								character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+							} else {
+								Writer.println("You do not seem very at peace dude.");
+								Writer.println("Get some rest before we try to learn.");
+							}
+							break;
+						case 2:
+							earthSpell.setAble();
+							Writer.println("Demetrius teaches you the ways of earth");
+							Writer.println("Nice dude! One more teacher, Zephiron! Good luck!");
+							character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+							break;
+						case 3:
+							Writer.println("Have fun knowing the ways of earth");
+							break;
+						default:
+							Writer.println("...");
+						}
+					} else if (character.getCurrentRoom().getNPC().get(i) instanceof Zephiron) {
+						//Zephiron Tasks
+						int x = character.getCurrentRoom().getNPC().get(i).getProgress();
+						if (character.getSocial() <= 2) {
+							x = 4;
+						}
+						switch(x) {
+						case 0:
+							Writer.println("So... you have mastered all three spells?");
+							if (earthSpell.isAble()) {
+								Writer.println("Ok..when you are ready, come find me.");
+								//Move Zephiron also need key for roof (note: key is hidden behind spell objects)
+								world.getRoom("Roof").npcsInRoom.add(new Zephiron("zephiron","The Wind Wizard",1));
+								character.getCurrentRoom().getNPC().remove(i);
+								character.getCurrentRoom().addItem(new Item("zephiron note",0,1, "Find the Key, find me. Look were it all began"));
+								world.getRoom("Dorm Room #3 (Yours)").addItem(new Item("paper airplane",0,1, "There is a note on the wings... Fire Room #[(5^3)-3(5+1)]"));
+								world.getRoom("Academy Entrance").addItem(new Item("bird",0,0, "This is a baby bird"));
+								Writer.println("Zephiron disapeared...");
+								//
+							} else {
+								Writer.println("You did not... then leave.");
+							}
+							break;
+						case 1:
+							Writer.println("It is so peaceful up here. ");
+							Writer.println("To teach you, we need a baby bird...");
+							for (int index=0; index < character.getInventory().size(); index++) {
+								if (character.getInventory().get(index).getName().equals("bird")) {
+									Writer.println("You gave " + character.getInventory().get(index) + "to Zephiron");
+									character.getInventory().remove(index);
+									Writer.println("Fine. When you're ready, let us begin.");
+									character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+									val = true;
+								}
+							} if (val == false) {
+								Writer.println("Go find one.");
+							}
+							break;
+						case 2:
+							windSpell.setAble();
+							Writer.println("Zephiron teaches you the ways of wind");
+							Writer.println("Now for your final exam, head to the foutain. ");
+							Writer.println("You will know what to do. ");
+							character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
+							break;
+						case 3:
+							Writer.println("What are you waiting for? Go!");
+							break;
+						default:
+							Writer.println("...");
+						}
+					} else {
+						Writer.println("\n" + character.getCurrentRoom().getNPC().get(i).getName() + ": ");
+						Writer.println(character.getCurrentRoom().getNPC().get(i).getDescription());
+						Random r = new Random();
+						int question = character.getCurrentRoom().getNPC().get(i).getQuestion();
+						int rand = r.nextInt(2); // 0 or 1
+						if (character.getSocial() <= 4 && rand == 0) {
+							character.getCurrentRoom().getNPC().get(i).setQuestion(10);	
+						}
+						character.setSocial(character.getSocial() + character.getCurrentRoom().getNPC().get(i).getAnswer());
+						if (character.getSocial() > character.getMaxEnergy()) {
+							character.setSocial(character.getMaxSocial());
+						}
+						character.getCurrentRoom().getNPC().get(i).setQuestion(question);
+						socialCount = 0;
+						socialWarning = true;
+					}
+					val = true;
+				}
+			} 
+			if (val == false) {
+				Writer.println("They are not in this room. ");
+			}
+		}
+	}
+	
+	private boolean processStatus() {
+		boolean retVal = false;
+		int x= 0;
+		if (character.getEnergy() == 0) {
+			Writer.println("You passed out from exhaustion/ hunger...");
+			retVal = true;
+		}
+		if (character.getSocial() == 0) {
+			Writer.println("You got kicked out of school for being a loner");
+			retVal = true;
+		}
+		if (character.getCurrentRoom().getName().equals("Outside")) {
+			Writer.println("You left the school never to return... ");
+			Writer.println("You here the voice of Gandalf as you walk away... ");
+			Writer.println("You shall not pass!");
+			retVal = true;
+		}
+		//Test if all angels have been activated (have all 4 token OR 1 dark token)
+		for (int index=0; index < character.getInventory().size(); index++) {
+			if (character.getInventory().get(index).getName().equals("token 1/4") && character.getCurrentRoom().getName().equals("Courtyard")) {
+				Writer.println("You found a token");
+				Writer.println("The fire angle is glowing");
+				x += 1;
+			}
+			if (character.getInventory().get(index).getName().equals("token 2/4") && character.getCurrentRoom().getName().equals("Courtyard")) {
+				Writer.println("You found a token");
+				Writer.println("The fire angle is glowing");
+				x += 1;
+			}
+			if (character.getInventory().get(index).getName().equals("token 3/4") && character.getCurrentRoom().getName().equals("Courtyard")) {
+				Writer.println("You found a token");
+				Writer.println("The fire angle is glowing");
+				x += 1;
+			}
+			if (character.getInventory().get(index).getName().equals("token 4/4") && character.getCurrentRoom().getName().equals("Courtyard")) {
+				Writer.println("You found a token");
+				Writer.println("The fire angle is glowing");
+				x += 1;
+			}
+			if (character.getInventory().get(index).getName().equals("dark token") && character.getCurrentRoom().getName().equals("Courtyard")) {
+				Writer.println("The dark angle begins to glow and you feel an immense power");
+				Writer.println("You hear the voice of Mordain:");
+				Writer.println("The time has come... to take revenge!");
+				retVal = true;
+				return retVal;
+			}
+		if (x == 4) {
+			Writer.println("Dumbledore congratulats you on passing all tests of the Academy");
+			Writer.println("To the well-organized mind, hires to the next great adventure.");
+			retVal = true;
+		}
+		}
+		return retVal;
+	}
 }

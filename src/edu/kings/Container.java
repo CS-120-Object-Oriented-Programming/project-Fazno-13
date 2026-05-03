@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class Container extends Item{
 
 	private ArrayList<Item> containerInventory = new ArrayList<>();
+	private String theKey;
+	private boolean locked;
 	
-	public Container(String newItem, int newScore, int newWeight, String newDescription, ArrayList<Item> newList) {
+	public Container(String newItem, int newScore, int newWeight, String newDescription, ArrayList<Item> newList,String theKey) {
 		super(newItem, newScore, newWeight, newDescription);
 		containerInventory = newList;
+		this.locked = false;
+		this.theKey = theKey;
 	}
 
 	public ArrayList<Item> getContainerInventory() {
@@ -34,8 +38,20 @@ public class Container extends Item{
 	
 	@Override
 	public String toString() {
-		String retVal = getName() + ": " + getDescription() + "\nThe " + getName() + " has: " + getContainerInventory();
+		String retVal = "\n" + getName() + ": " + getDescription();
 		return retVal;
+	}
+	
+	public String getKey() {
+		return theKey;
+	}
+
+	public boolean isLocked() {
+		return locked;
+	}
+
+	public void setLock(boolean locked) {
+		this.locked = locked;
 	}
 	
 }

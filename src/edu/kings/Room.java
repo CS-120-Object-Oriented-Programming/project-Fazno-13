@@ -35,11 +35,19 @@ public class Room {
 	// A list of items in that room
 	ArrayList <Item> itemsInRoom = new ArrayList<>();
 	
+	// A list of NPCs in that room
+	ArrayList <NPC> npcsInRoom = new ArrayList<>();
+	
 	public String toString() {
-		String retVal = getName() + ": " + getDescription() + "\n Exits: ";
+		String retVal = getName() + ": " + getDescription() + "\nExits: ";
 		for (String nextDoor: allDoors.keySet()) {
 			retVal += nextDoor + " ";
 		}
+		retVal += "\nNPCs: ";
+		for (int i=0; i< npcsInRoom.size(); i++) {
+			retVal += npcsInRoom.get(i).toString() + " ";
+		}
+		
 		retVal += "\nItems: ";
 		for (int i=0; i< itemsInRoom.size(); i++) {
 			retVal += itemsInRoom.get(i).toString() + " ";
@@ -128,4 +136,22 @@ public class Room {
 			}
 		} return null;
 	}
+	
+	// make a list, add item to list, remove from list and add to inventory, 
+		public void addNPC(NPC newNPC) {
+			npcsInRoom.add(newNPC);
+		}
+		
+		public ArrayList<NPC> getNPC() {
+			return npcsInRoom;
+		}
+		
+		public NPC removeNPC(String npcName) {
+			for (int i=0;  i < npcsInRoom.size(); i++) {
+				if (npcsInRoom.get(i).getName() == npcName) {
+					npcsInRoom.remove(i);
+					return npcsInRoom.get(i);
+				}
+			} return null;
+		}
 }
