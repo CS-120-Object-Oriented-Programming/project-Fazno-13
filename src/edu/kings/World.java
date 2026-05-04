@@ -463,6 +463,7 @@ public class World {
 		foodPlaza.addItem(createItem(new Item("sandwich shop",0,1, "This is a good place to eat")));
 		arawnsForest.addItem(createItem(new Item("apple tree",0,1, "There looks to be some good apples in the tree")));
 		
+		courtyard.addItem(createItem(new Item("map",0,1, "A map of the Academy")));
 		courtyard.addItem(createItem(new Item("foutain",0,1, "A pretty fountain with 5 angels around it, but one seems to have broken off")));
 		box6.add(new Item("token 1/4", 0, 0, "a token for your final"));
 		box7.add(new Item("token 2/4", 0, 0, "a token for your final"));
@@ -489,6 +490,12 @@ public class World {
 		arawnsForest.addItem(createContainer(new Container("leaves", 0, 1, "a pile of leaves", box4,"wind scroll"),true));
 
 		insideMordainMansion.addItem(createContainer(new Container("mordain statue", 0, 1, "A broken statue of one of the old professors. It seems to have 5 missing orbs around the base.", box11,null),false));
+		mordain104.addItem(createItem(new Item("journal",0,1, "The journal says: Only a true wizard can find the keys hidden in Arawns Forest.")));
+		insideMordainMansion.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
+		mordain102.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
+		mordain103.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
+		mordain106.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
+		mordain108.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
 
 		
 		// Adding NPCs to there rooms

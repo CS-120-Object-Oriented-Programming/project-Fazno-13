@@ -1,18 +1,23 @@
 package edu.kings;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.net.URL;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -45,6 +50,8 @@ public class Main extends JFrame implements ActionListener {
 
 	/** The game instance. */
 	private Game game;
+	
+	public ImagePanel imagePanel;
 
 	/** Static block for initializing static fields. */
 	static {
@@ -109,7 +116,10 @@ public class Main extends JFrame implements ActionListener {
 		setVisible(true);
 		commandField.requestFocus();
 
-		game = new Game();
+		imagePanel = new ImagePanel("/Wizard Academy.png");
+		add(imagePanel, BorderLayout.CENTER);
+		
+		game = new Game(this);
 		game.play();
 	}
 
@@ -239,4 +249,6 @@ public class Main extends JFrame implements ActionListener {
 			return result;
 		}
 	}
+	
+	
 }

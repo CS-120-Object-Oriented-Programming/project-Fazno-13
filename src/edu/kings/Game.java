@@ -3,6 +3,7 @@ package edu.kings;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 /**
  * This class is the main class of the "Campus of Kings" application.
  * "Campus of Kings" is a very simple, text based adventure game. Users can walk
@@ -29,6 +30,10 @@ public class Game {
 	private Room lastroom;
 	private ArrayList<Item> item;
 	
+	private Main main;
+	private ImagePanel imagePanel;
+	private int mapCount = 0;
+	
 	private int energyCount = 0;
 	private boolean energyWarning = true;
 	private int socialCount = 0;
@@ -43,11 +48,16 @@ public class Game {
 	/**
 	 * Create the game and initialize its internal map.
 	 */
-	public Game() {
+	public Game(Main main) {
+		this.main = main;
 		world = new World();
 		// set the starting room
 		character = new Player(world.getRoom("Dorm Room #3 (Yours)"), new ArrayList<>(),false);
 		lastroom = world.getRoom("Dorm Room #3 (Yours)");
+		
+		imagePanel = new ImagePanel("/Wizard Academy.png");
+		main.add(imagePanel, java.awt.BorderLayout.CENTER);
+		
 	}
 
 	/**
@@ -56,6 +66,7 @@ public class Game {
 	public void play() {
 		printWelcome();
 		character.setScore(0);
+		
 		// Enter the main game loop. Here we repeatedly read commands and
 		// execute them until the game is over.
 		boolean wantToQuit = false;
@@ -83,6 +94,15 @@ public class Game {
 			if (socialWarning && character.getEnergy() == 6) {
 				Writer.println("\nYou begin to feel sleepy and your tummy grumbles");
 				socialWarning = false;
+			}
+			if (mapCount > 0) {
+			    mapCount--;
+			    if (mapCount == 1) {
+			        imagePanel.setImage("/Wizard Map.png");
+			    }
+			    if (mapCount == 0) {
+			        imagePanel.setImage("/Wizard Academy.png");
+			    }
 			}
 			wantToQuit = processStatus();
 			
@@ -142,20 +162,14 @@ public class Game {
 			case TAKE:
 				takeItem(command);
 				break;
-			case DROP:
-				dropItem(command);
-				break;
 			case INVENTORY:
 				myInventory();
 				break;
 			case UNLOCK:
 				unlockDoor(command);
 				break;
-			case LOCK:
-				lockDoor(command);
-				break;
-			case PACK:
-				pack(command);
+			case PLACE:
+				place(command);
 				break;
 			case UNPACK:
 				unPack(command);
@@ -209,177 +223,193 @@ public class Game {
 	 *            The command to be processed.
 	 */
 	private void goRoom(Command command) {
-		if (!command.hasSecondWord()) {
-			// if there is no second word, we don't know where to go...
-			Writer.println("Go where?");
-		} else {
-			String direction = command.getRestOfLine();
-			boolean val = false;
-			// Try to leave current.
-			Door doorway = null;
-			if (direction.equals("north")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-				
-			}
-			if (direction.equals("east")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("south")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("west")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("enter")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("exit")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("room 101")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("room 102")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("room 103")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("room 104")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("room 105")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("room 106")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("room 107")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("room 108")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-			if (direction.equals("roof")) {
-				if (character.getCurrentRoom().getExit(direction) == null) {
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
-					doorway = character.getCurrentRoom().getExit(direction);
-					val = true;
-				} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
-					Writer.println("The door is locked.");
-					val = true;
-				}
-			}
-
-			if (doorway == null) {
-				if (val == false) {
-					Writer.println("There is no door!");
-				}
-			} else {
-				lastroom = character.getCurrentRoom();
-				Room newRoom = doorway.getDestination();
-				character.setCurrentRoom(newRoom);
-				printLocationInformation(newRoom);
-			}
+		//See if player has energy to move
+		int rand = 3;
+		if (character.getEnergy() <= 4) {
+			Random r = new Random();
+			rand = r.nextInt(4); // 0 or 3 (33% of Not)
 		}
+		if (character.getEnergy() <= 2) {
+			Random r = new Random();
+			rand = r.nextInt(2); // 0 or 1 (50% of Not)
+		}
+		if (rand != 0) {
+			if (!command.hasSecondWord()) {
+				// if there is no second word, we don't know where to go...
+				Writer.println("Go where?");
+			} else {
+				String direction = command.getRestOfLine();
+				boolean val = false;
+				// Try to leave current.
+				Door doorway = null;
+				if (direction.equals("north")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+					
+				}
+				if (direction.equals("east")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("south")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("west")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("enter")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("exit")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("room 101")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("room 102")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("room 103")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("room 104")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("room 105")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("room 106")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("room 107")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("room 108")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+				if (direction.equals("roof")) {
+					if (character.getCurrentRoom().getExit(direction) == null) {
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == false) {
+						doorway = character.getCurrentRoom().getExit(direction);
+						val = true;
+					} else if (character.getCurrentRoom().getExit(direction).isLocked() == true) {
+						Writer.println("The door is locked.");
+						val = true;
+					}
+				}
+
+				if (doorway == null) {
+					if (val == false) {
+						Writer.println("There is no door!");
+					}
+				} else {
+					lastroom = character.getCurrentRoom();
+					Room newRoom = doorway.getDestination();
+					character.setCurrentRoom(newRoom);
+					printLocationInformation(newRoom);
+				}
+			}
+		} else {
+			Writer.println("You are so tierd you trip and fall.");
+			Writer.println("You get back up not knowing what happened.");
+		}
+		
 	}
 
 	/**
@@ -474,6 +504,11 @@ public class Game {
 					character.setEnergy(character.getMaxEnergy());
 					energyCount = 0;
 					energyWarning= true;
+					val = true;
+				}
+				if (character.getCurrentRoom().getItem().get(i).getName().equals("map")) {
+					Writer.println("Avalon looks at the world map. He is in the middle of campus");
+					mapCount = 2;
 					val = true;
 				}
 			}
@@ -608,42 +643,37 @@ public class Game {
 	}
 	
 	//ONLY FOR STATUE
-	private void pack(Command command) {
+	private void place(Command command) {
 		if(!command.hasSecondWord()) {
-			Writer.println("Pack what? ");
+			Writer.println("Place what? ");
 		} else {
 			String theItem = command.getRestOfLine();
 			boolean val = true;
 			boolean isInRoom = false;
 			boolean isInInventory = false;
 			
-			for(int i = 0; i < character.getCurrentRoom().getItem().size(); i++) {
-				if(character.getCurrentRoom().getItem().get(i).getName().equals(theItem)) {
-					Writer.println("What would you like to pack it in? ");
-					String containerItem = Reader.getResponse();
-					isInRoom = true;
-					for(int index = 0; index < character.getCurrentRoom().getItem().size(); index++) {
-						val = false;
-						if(character.getCurrentRoom().getItem().get(index) instanceof Container && character.getCurrentRoom().getItem().get(index).getName().equals(containerItem)) {
-							((Container)character.getCurrentRoom().getItem().get(index)).addItem(character.getCurrentRoom().getItem().get(i));
-							character.getCurrentRoom().getItem().remove(character.getCurrentRoom().getItem().get(i));
-							Writer.println("The item has been packed into the container. ");
-							val = true;
-						}
-					}
-				}
-			} for(int anotherI = 0; anotherI < character.getInventory().size(); anotherI++) {
-				if(character.getInventory().get(anotherI).getName().equals(theItem)) {
-					Writer.println("What would you like to pack it in? ");
+			for(int anotherI = 0; anotherI < character.getInventory().size(); anotherI++) {
+				if(character.getInventory().get(anotherI).getName().equals(theItem) && theItem == "orb") {
+					Writer.println("What would you like to place it in? ");
 					String newContainerItem = Reader.getResponse();
 					isInInventory = true;
 					for(int anotherIndex = 0; anotherIndex < character.getCurrentRoom().getItem().size(); anotherIndex++) {
 						val = false;
-						if(character.getCurrentRoom().getItem().get(anotherIndex) instanceof Container && character.getCurrentRoom().getItem().get(anotherIndex).getName().equals(newContainerItem)) {
+						if(character.getCurrentRoom().getItem().get(anotherIndex).getName().equals("mordain statue") && character.getCurrentRoom().getItem().get(anotherIndex).getName().equals(newContainerItem)) {
 							((Container)character.getCurrentRoom().getItem().get(anotherIndex)).addItem(character.getInventory().get(anotherI));
 							character.getInventory().remove(character.getInventory().get(anotherI));
-							Writer.println("The item has been packed into the container. ");
+							Writer.println("The orb has been placed into the statue. ");
 							val = true;
+							
+							//Testing if statue has all orbs
+							if (character.getCurrentRoom().getItem().get(anotherIndex) instanceof Container) {
+								Container v = (Container) character.getCurrentRoom().getItem().get(anotherIndex);
+								if (v.getContainerInventory().size() == 5) {
+									Writer.println("The statue opens up revealing a scroll. ");
+									Writer.println("You take the scroll and learn dark magic. ");
+									darkSpell.isAble();
+								}
+							}
 						}
 					}
 				}
@@ -652,9 +682,11 @@ public class Game {
 			} if (isInRoom == false && isInInventory == false) {
 				Writer.println("That item is not available. ");
 			}
+				
 		}
 	}
 	
+	//ONLY FOR DESK
 	public void unPack(Command command) {
 		if (!command.hasSecondWord()) {
 			Writer.println("Unpack what? ");
@@ -662,7 +694,7 @@ public class Game {
 			String container = command.getRestOfLine();
 			boolean val = false;
 			for (int i = 0; i < character.getCurrentRoom().getItem().size(); i++ ) {
-				if (character.getCurrentRoom().getItem().get(i).getName().equals(container)) {
+				if (character.getCurrentRoom().getItem().get(i).getName().equals(container) && container == "desk") {
 					if(character.getCurrentRoom().getItem().get(i) instanceof Container == true) {
 						Writer.println("What item would you like to unpack?");
 						String theAnswer = Reader.getResponse();
@@ -1082,11 +1114,12 @@ public class Game {
 				retVal = true;
 				return retVal;
 			}
+			
+		}
 		if (x == 4) {
 			Writer.println("Dumbledore congratulats you on passing all tests of the Academy");
 			Writer.println("To the well-organized mind, hires to the next great adventure.");
 			retVal = true;
-		}
 		}
 		return retVal;
 	}
