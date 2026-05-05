@@ -344,7 +344,7 @@ public class World {
 		createDoor(insideOrionHall, "room 106", "master key", orion106);
 		createDoor(orion106, "exit", null, insideOrionHall);
 		
-		createDoor(insideOrionHall, "room 107", "null", orion107);
+		createDoor(insideOrionHall, "room 107", null, orion107);
 		createDoor(orion107, "exit", null, insideOrionHall);
 		
 		createDoor(insideOrionHall, "room 108", null, orion108);
@@ -402,10 +402,10 @@ public class World {
 		createDoor(roof, "exit", null, insideZephironHall);
 		
 //Rooms in Demetrius	
-		createDoor(insideDemetriusHall, "room 101", "master key", demetrius101);
+		createDoor(insideDemetriusHall, "room 101", null, demetrius101);
 		createDoor(demetrius101, "exit", null, insideDemetriusHall);
 		
-		createDoor(insideDemetriusHall, "room 102", "master key", demetrius102);
+		createDoor(insideDemetriusHall, "room 102", null, demetrius102);
 		createDoor(demetrius102, "exit", null, insideDemetriusHall);
 		
 		createDoor(insideDemetriusHall, "room 103", "master key", demetrius103);
@@ -423,7 +423,7 @@ public class World {
 		createDoor(insideDemetriusHall, "room 107", "master key", demetrius107);
 		createDoor(demetrius107, "exit", null, insideDemetriusHall);
 		
-		createDoor(insideDemetriusHall, "room 108", null, demetrius108);
+		createDoor(insideDemetriusHall, "room 108", "master key", demetrius108);
 		createDoor(demetrius108, "exit", null, insideDemetriusHall);
 //Rooms in Mordain
 		createDoor(insideMordainMansion, "room 101", "master key", mordain101);
@@ -484,7 +484,7 @@ public class World {
 		box2.add(new Item("water key", 0, 0, "a key with a water emblem"));
 		box3.add(new Item("earth key", 0, 0, "a key with a earth emblem"));
 		box4.add(new Item("wind key", 0, 0, "a key with a wind emblem"));
-		dorm103.addItem(createContainer(new Container("tree", 0, 1, "a random tree", box1,"fire scroll"),true));
+		arawnsForest.addItem(createContainer(new Container("tree", 0, 1, "a random tree", box1,"fire scroll"),true));
 		arawnsForest.addItem(createContainer(new Container("pond", 0, 1, "a small body of water", box2,"water scroll"),true));
 		arawnsForest.addItem(createContainer(new Container("bolder", 0, 1, "a large rock", box3,"earth scroll"),true));
 		arawnsForest.addItem(createContainer(new Container("leaves", 0, 1, "a pile of leaves", box4,"wind scroll"),true));
@@ -499,12 +499,45 @@ public class World {
 
 		
 		// Adding NPCs to there rooms
-		dorm103.addNPC(createNPC(new NPC("noah","some guy")));
+		//Orion 3, 7, 8
+		//zephiron 4 6 8
+		//merlin 1 2 5 6 7 
+		//demetrius 1 2 4
+		//dorms 1 4 5 6 8
 		courtyard.addNPC(createNPC(new NPC("harry","your roommate")));
-		dorm103.addNPC(createNPC(new Orion("orion","The Fire Wizard",0)));
-		dorm103.addNPC(createNPC(new Zephiron("zephiron","The Wind Wizard",0)));
-		dorm103.addNPC(createNPC(new Merlin("merlin","The Water Wizard",0)));
-		dorm103.addNPC(createNPC(new Demetrius("demetrius","The Earth Wizard",0)));
+		orion105.addNPC(createNPC(new Orion("orion","The Fire Wizard",0)));
+		zephiron104.addNPC(createNPC(new Zephiron("zephiron","The Wind Wizard",0)));
+		merlin101.addNPC(createNPC(new Merlin("merlin","The Water Wizard",0)));
+		arawnsForest.addNPC(createNPC(new Demetrius("demetrius","The Earth Wizard",0)));
+
+		enterance.addNPC(createNPC(new NPC("dr.darrell","A professor form another school")));
+		courtyard.addNPC(createNPC(new NPC("dr.koscho","A professor form another school")));
+		enterance.addNPC(createNPC(new NPC("cody","A wizard in training")));
+		orion103.addNPC(createNPC(new NPC("leonel","A fire wizard")));
+		merlin101.addNPC(createNPC(new NPC("averi","A water wizard in training")));
+		arawnsForest.addNPC(createNPC(new NPC("vincent","A earth wizard in training")));
+		zephiron106.addNPC(createNPC(new NPC("axel","A wind wizard in training")));
+		orion107.addNPC(createNPC(new NPC("athena","A fire wizard")));
+		merlin106.addNPC(createNPC(new NPC("neshell","A water wizard")));
+		zephiron106.addNPC(createNPC(new NPC("dannellys","A wind wizard")));
+		demetrius102.addNPC(createNPC(new NPC("jacob","A earth wizard")));
+		foodPlaza.addNPC(createNPC(new NPC("nicholas","A hungry water wizard")));
+		foodPlaza.addNPC(createNPC(new NPC("brandon","A hungry fire wizard")));
+		foodPlaza.addNPC(createNPC(new NPC("eric","A hungry earth wizard")));
+		
+		enterance.addNPC(createNPC(new NPC("vinny","An overworked wizard")));
+		outsideMordainMansion.addNPC(createNPC(new NPC("sam","A wizard with a dark secret")));
+		outsideOrionHall.addNPC(createNPC(new NPC("noah","A failing wizard")));
+		dorm101.addNPC(createNPC(new NPC("taylor","A creative  wizard")));
+		merlin107.addNPC(createNPC(new NPC("roman","An athletic wizard")));
+		dorm104.addNPC(createNPC(new NPC("matt","An excelling wizard")));
+		dorm101.addNPC(createNPC(new NPC("kj","A musical wizard")));
+		dorm106.addNPC(createNPC(new NPC("dominick","A friendly wizard")));
+		dorm108.addNPC(createNPC(new NPC("jason","A tired wizard")));
+		dorm105.addNPC(createNPC(new NPC("melissa","A caring wizard")));
+		
+		insideMordainMansion.addNPC(createNPC(new NPC("ghost","A dead wizard")));
+		insideMordainMansion.addNPC(createNPC(new NPC("skeleton","A mutilated wizard")));
 
 
 	}

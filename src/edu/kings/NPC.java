@@ -89,20 +89,25 @@ public class NPC {
 				try {
 					if (command.getCommandWord().equals(CommandEnum.TRUE) && question % 2 == 1) {
 						Writer.println("Correct");
-						return 1;
+						Writer.println("Your Social Status went up");
+						return 2;
 					} else if (command.getCommandWord().equals(CommandEnum.FALSE) && question % 2 == 0) {
 						Writer.println("Correct");
-						return 1;
+						Writer.println("Your Social Status went up");
+						return 2;
 					} else {
 						Writer.println("Wrong");
+						Writer.println("Your Social Status went down");
 						return -1;
 					}
 				} catch (Exception e) {
 					Writer.println(getName() + " walked away");
+					Writer.println("Your Social Status went down");
 					return -1;
 				}
 			} else {
 				Writer.println(getName() + " walked away");
+				Writer.println("Your Social Status went down");
 				return -1;
 			}
 		} else {

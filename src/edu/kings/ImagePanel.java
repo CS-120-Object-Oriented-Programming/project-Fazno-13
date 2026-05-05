@@ -16,7 +16,7 @@ public class ImagePanel extends JPanel {
 	public ImagePanel(String resourcePath) {
 	    try {
 	        imageUrl = getClass().getResource(resourcePath);
-	        System.out.println("Loading: " + resourcePath + " -> " + imageUrl);
+	        //System.out.println("Loading: " + resourcePath + " -> " + imageUrl);
 	        if (imageUrl == null) {
 	            throw new IOException("Image not found: " + resourcePath);
 	        }
@@ -57,7 +57,6 @@ public class ImagePanel extends JPanel {
     }
     
     public void setImage(String resourcePath) {
-    	System.out.println("setImage called");
     	try {
             URL url = getClass().getResource(resourcePath);
             if (url == null) {

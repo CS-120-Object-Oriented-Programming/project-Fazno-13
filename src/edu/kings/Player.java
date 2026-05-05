@@ -87,11 +87,18 @@ public class Player {
 	}
 
 	public int getScore() {
+		if (score < 0) {
+			score = 0;
+		}
 		return score;
 	}
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+	
+	public void addScore(int points) {
+		score += points;
 	}
 
 	public int getTurns() {
