@@ -41,16 +41,16 @@ public class Room {
 	public String toString() {
 		String retVal = getName() + ": " + getDescription() + "\nExits: ";
 		for (String nextDoor: allDoors.keySet()) {
-			retVal += nextDoor + " ";
+			retVal += nextDoor + ", ";
 		}
 		retVal += "\nNPCs: ";
 		for (int i=0; i< npcsInRoom.size(); i++) {
-			retVal += npcsInRoom.get(i).toString() + " ";
+			retVal += npcsInRoom.get(i).toString() + ", ";
 		}
 		
 		retVal += "\nItems: ";
 		for (int i=0; i< itemsInRoom.size(); i++) {
-			retVal += itemsInRoom.get(i).toString() + " ";
+			retVal += itemsInRoom.get(i).toString() + ", ";
 		}
 		return retVal + "\n";
 	}

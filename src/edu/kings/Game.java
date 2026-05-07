@@ -33,6 +33,7 @@ public class Game {
 	private Main main;
 	private ImagePanel imagePanel;
 	private int mapCount = 0;
+	private int x =0;
 	
 	private int energyCount = 0;
 	private boolean energyWarning = true;
@@ -52,8 +53,8 @@ public class Game {
 		this.main = main;
 		world = new World();
 		// set the starting room
-		character = new Player(world.getRoom("Dorm Room #3 (Yours)"), new ArrayList<>(),false);
-		lastroom = world.getRoom("Dorm Room #3 (Yours)");
+		character = new Player(world.getRoom("Dorm Room #103 (Yours)"), new ArrayList<>(),false);
+		lastroom = world.getRoom("Dorm Room #103 (Yours)");
 		
 		imagePanel = new ImagePanel("/Wizard Academy.png");
 		main.add(imagePanel, java.awt.BorderLayout.CENTER);
@@ -139,6 +140,7 @@ public class Game {
 				goRoom(command);
 				break;
 			case QUIT:
+				Writer.println("\nYou lost the game");
 				wantToQuit = quit(command);
 				break;
 			case LOOK:
@@ -418,7 +420,7 @@ public class Game {
 				}
 			}
 		} else {
-			Writer.println("You are so tierd you trip and fall.");
+			Writer.println("You are so tired you trip and fall.");
 			Writer.println("You get back up not knowing what happened.");
 		}
 		
@@ -431,7 +433,7 @@ public class Game {
 		Writer.println("I hope you had fun with my game!");
 		Writer.println("Thank you for playing.  Good bye.");
 		Writer.println("\nFinal Score: " + character.getScore());
-		Writer.println("Total Moves: " + character.getTurns());
+		Writer.println("Total Moves: " + character.getTurns() + " / 80");
 	}
 
 	/**
@@ -440,13 +442,14 @@ public class Game {
 	 */
 	private void printHelp() {
 		Writer.println("You wander around the Academy to:");
-		Writer.println(" 1. Find your stuuf");
-		Writer.println(" 2. Learn from teachers");
+		Writer.println(" 1. Find your stuff (Bag, Wand, Wizard ID)");
+		Writer.println(" 2. Learn from teachers (Orion, Merlin, Demetrius, Zeohiron)");
 		Writer.println(" 3. Graduate\n");
 		Writer.println("Your command words are:");
 		for (CommandEnum commandWord: CommandEnum.values()) {
 			Writer.print(commandWord.getCommand() + " ");
 		}
+		Writer.println("");
 	}
 
 	/**
@@ -457,7 +460,7 @@ public class Game {
 		Writer.println("Welcome to The Aethereal Academy!");
 		Writer.println("\nYour name is Avalon. It’s his first day at Aethereal Academy"
 					+ "\nand you just woke up late for your first class. Make sure to grab all" 
-					+ "\nto grab all your stuff so you can graduate and become one of the best Wizards..");
+					+ "\nyour stuff so you can graduate and become one of the best Wizards..");
 		Writer.println("Type 'help' if you need help.");
 		Writer.println();
 		printLocationInformation(character.getCurrentRoom());
@@ -554,8 +557,12 @@ public class Game {
 				
 			} 
 			if (character.isBag() && val) {
+				//character.setInventory(character.getCurrentRoom().getItem().get(index));
+				//character.getCurrentRoom().getItem().remove(index);
 				character.setInventory(character.getCurrentRoom().getItem().get(index));
-				character.getCurrentRoom().getItem().remove(index);
+				if (character.getCurrentRoom().getItem().get(index).getWeight() == 0) {
+					character.getCurrentRoom().getItem().remove(index);
+				}
 			} else
 			if (val == false) {
 				Writer.println("There is no such item. ");
@@ -612,7 +619,7 @@ public class Game {
 			boolean isInInventory = false;
 			
 			for(int anotherI = 0; anotherI < character.getInventory().size(); anotherI++) {
-				if(character.getInventory().get(anotherI).getName().equals(theItem) && theItem == "orb") {
+				if(character.getInventory().get(anotherI).getName().equals(theItem) && character.getInventory().get(anotherI).getName().equals("orb")) {
 					Writer.println("What would you like to place it in? ");
 					String newContainerItem = Reader.getResponse();
 					isInInventory = true;
@@ -655,7 +662,7 @@ public class Game {
 			String container = command.getRestOfLine();
 			boolean val = false;
 			for (int i = 0; i < character.getCurrentRoom().getItem().size(); i++ ) {
-				if (character.getCurrentRoom().getItem().get(i).getName().equals(container) && container == "desk") {
+				if (character.getCurrentRoom().getItem().get(i).getName().equals(container) && character.getCurrentRoom().getItem().get(i).getName().equals("desk")) {
 					if(character.getCurrentRoom().getItem().get(i) instanceof Container == true) {
 						Writer.println("What item would you like to unpack?");
 						String theAnswer = Reader.getResponse();
@@ -688,7 +695,6 @@ public class Game {
 				Writer.println("Cast what? ");
 			} else {
 				String theItem = command.getRestOfLine();
-				Writer.println(theItem);
 				if (theItem.equals("fire")) {
 					if (fireSpell.isAble()) {
 						//Execute Fire Spell
@@ -863,7 +869,7 @@ public class Game {
 							}
 							break;
 						case 2:
-							Writer.println("You now know the ways of Fire");
+							Writer.println("You now know the ways of fire. Go see Merlin to learn Water!");
 							fireSpell.setAble();
 							character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
 							character.addScore(20);
@@ -895,7 +901,7 @@ public class Game {
 							break;
 						case 1:
 							Writer.println("To teach you the ways of water, we must find a place with water");
-							Writer.println("Meet me by the foutain to learn the ways of water");
+							Writer.println("Meet me by the fountain to learn the ways of water");
 							//Move Merlin
 							character.addScore(15);
 							world.getRoom("courtyard").npcsInRoom.add(new Merlin("merlin","The Water Wizard",2));
@@ -905,8 +911,8 @@ public class Game {
 							break;
 						case 2:
 							waterSpell.setAble();
-							Writer.println("Merlin teaches you the ways of water with the water in the foutain");
-							Writer.println("Now, go forth and take your knowlege to learn from Demetrius");
+							Writer.println("Merlin teaches you the ways of water with the water in the fountain");
+							Writer.println("Now, go forth and take your knowledge to learn from Demetrius");
 							character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
 							character.addScore(20);
 							break;
@@ -941,8 +947,7 @@ public class Game {
 								Writer.println("Meet me back in class and I will teach you some stuff dude!");
 								//Move Demetrius
 								character.addScore(15);
-								world.getRoom("Demetrius Room #4").npcsInRoom.add(new Demetrius("demetrius","The Earth Wizard",2));
-								character.getCurrentRoom().getNPC().remove(i);
+								world.getRoom("Demetrius Room #104").npcsInRoom.add(new Demetrius("demetrius","The Earth Wizard",2));
 								Writer.println("Demetrius walked away...");
 								//
 								character.getCurrentRoom().getNPC().get(i).setProgress(x+1);
@@ -981,9 +986,10 @@ public class Game {
 								world.getRoom("Roof").npcsInRoom.add(new Zephiron("zephiron","The Wind Wizard",1));
 								character.getCurrentRoom().getNPC().remove(i);
 								character.getCurrentRoom().addItem(new Item("zephiron note",0,1, "Find the Key, find me. Look were it all began"));
-								world.getRoom("Dorm Room #3 (Yours)").addItem(new Item("paper airplane",0,1, "There is a note on the wings... Fire Room #[(5^3)-3(5+1)]"));
+								world.getRoom("Dorm Room #103 (Yours)").addItem(new Item("paper airplane",0,1, "There is a note on the wings... Fire Room #[(5^3)-3(5+1)]"));
 								world.getRoom("Academy Entrance").addItem(new Item("bird",0,0, "This is a baby bird"));
 								Writer.println("Zephiron disapeared...");
+								Writer.println("A note takes his place. Maybe it is a hint?");
 								//
 							} else {
 								Writer.println("You did not... then leave.");
@@ -1049,50 +1055,69 @@ public class Game {
 	
 	private boolean processStatus() {
 		boolean retVal = false;
-		int x= 0;
+		x = 0;
 		if (character.getEnergy() == 0) {
 			Writer.println("You passed out from exhaustion/ hunger...");
+			Writer.println("\nYou finished the game (dying ending)");
 			character.addScore(-10);
 			retVal = true;
 		}
 		if (character.getSocial() == 0) {
 			Writer.println("You got kicked out of school for being a loner");
+			Writer.println("\nYou finished the game (kicked out ending)");
 			character.addScore(-10);
 			retVal = true;
 		}
 		if (character.getCurrentRoom().getName().equals("Outside")) {
-			Writer.println("You left the school never to return... ");
-			Writer.println("You here the voice of Gandalf as you walk away... ");
-			Writer.println("You shall not pass!");
-			character.addScore(-25);
-			retVal = true;
+			//Testing
+			Writer.println("Are you sure you want to leave? (true/false)");
+			Command command = Reader.getCommand();
+			try {
+				if (command.getCommandWord().equals(CommandEnum.TRUE)) {
+					Writer.println("You left the school never to return... ");
+					Writer.println("You here the voice of Gandalf as you walk away... ");
+					Writer.println("You shall not pass!");
+					Writer.println("\nYou finished the game (leaving ending)");
+					character.addScore(-25);
+					retVal = true;
+				} else if (command.getCommandWord().equals(CommandEnum.FALSE)) {
+					Writer.println("You turned around staying at the Academy ");
+					character.setCurrentRoom(lastroom);
+				} else {
+					Writer.println("I do not know what you mean...  ");
+					Writer.println("You stayed at the Academy ");
+					character.setCurrentRoom(lastroom);
+				}
+			} catch (Exception e) {
+				Writer.println("I do not know what you mean...  ");
+				Writer.println("You stayed at the Academy ");
+				character.setCurrentRoom(lastroom);
+			}
+			
 		}
 		//Test if all angels have been activated (have all 4 token OR 1 dark token)
 		for (int index=0; index < character.getInventory().size(); index++) {
 			if (character.getInventory().get(index).getName().equals("token 1/4") && character.getCurrentRoom().getName().equals("Courtyard")) {
-				Writer.println("You found a token");
-				Writer.println("The fire angle is glowing");
+				Writer.println("The fire angel is glowing \n");
 				x += 1;
 			}
 			if (character.getInventory().get(index).getName().equals("token 2/4") && character.getCurrentRoom().getName().equals("Courtyard")) {
-				Writer.println("You found a token");
-				Writer.println("The fire angle is glowing");
+				Writer.println("The water angel is glowing \n");
 				x += 1;
 			}
 			if (character.getInventory().get(index).getName().equals("token 3/4") && character.getCurrentRoom().getName().equals("Courtyard")) {
-				Writer.println("You found a token");
-				Writer.println("The fire angle is glowing");
+				Writer.println("The earth angel is glowing \n");
 				x += 1;
 			}
 			if (character.getInventory().get(index).getName().equals("token 4/4") && character.getCurrentRoom().getName().equals("Courtyard")) {
-				Writer.println("You found a token");
-				Writer.println("The fire angle is glowing");
+				Writer.println("The wind angel is glowing \n");
 				x += 1;
 			}
 			if (character.getInventory().get(index).getName().equals("dark token") && character.getCurrentRoom().getName().equals("Courtyard")) {
 				Writer.println("The dark angle begins to glow and you feel an immense power");
 				Writer.println("You hear the voice of Mordain:");
 				Writer.println("The time has come... to take revenge!");
+				Writer.println("\nYou finished the game (secret ending)");
 				character.addScore(25);
 				retVal = true;
 				return retVal;
@@ -1102,6 +1127,7 @@ public class Game {
 		if (x == 4) {
 			Writer.println("Dumbledore congradulates you on passing all tests of the Academy");
 			Writer.println("To the well-organized mind, hires to the next great adventure.");
+			Writer.println("\nYou finished the game (intended ending)");
 			character.addScore(20);
 			retVal = true;
 		}

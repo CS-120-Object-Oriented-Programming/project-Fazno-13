@@ -29,7 +29,7 @@ public class NPC {
 	}
 
 	public String toString() {
-		String retVal = getName() + ", ";
+		String retVal = getName() + " ";
 		return retVal;
 	}
 	

@@ -3,53 +3,53 @@ Welcome to The Aethereal Academy!
 
 Your name is Avalon. It’s his first day at Aethereal Academy
 and you just woke up late for your first class. Make sure to grab all
-to grab all your stuff so you can graduate and become one of the best Wizards..
+your stuff so you can graduate and become one of the best Wizards..
 Type 'help' if you need help.
 
-Dorm Room #3 (Yours): This is your dorm room
-Exits: exit 
+Dorm Room #103 (Yours): This is your dorm room
+Exits: exit, 
 NPCs: 
-Items: wizard id,  roommate note,  bed,  
+Items: wizard id , roommate note , bed , 
 
 > go exit
 Dorms (inside): This is where you and your fellow classmates sleep and hang out
-Exits: room 106 exit room 107 room 104 room 105 room 108 room 102 room 103 room 101 
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
 NPCs: 
 Items: 
 
 > go room 101
-Dorm Room #1: This is a dorm room
-Exits: exit 
-NPCs: taylor,  kj,  
-Items: bag,  
+Dorm Room #101: This is a dorm room
+Exits: exit, 
+NPCs: taylor , kj , 
+Items: bag , 
 
 > take bag
 Succsessfuly pick up bag. 
 > go exit
 Dorms (inside): This is where you and your fellow classmates sleep and hang out
-Exits: room 106 exit room 107 room 104 room 105 room 108 room 102 room 103 room 101 
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
 NPCs: 
 Items: 
 
 > go room 108
-Dorm Room #8: This is a dorm room
-Exits: exit 
-NPCs: jason,  
-Items: wand,  
+Dorm Room #108: This is a dorm room
+Exits: exit, 
+NPCs: jason , 
+Items: wand , 
 
 > take wand
 Succsessfuly pick up wand. 
 > go exit
 Dorms (inside): This is where you and your fellow classmates sleep and hang out
-Exits: room 106 exit room 107 room 104 room 105 room 108 room 102 room 103 room 101 
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
 NPCs: 
 Items: 
 
 > go room 103
-Dorm Room #3 (Yours): This is your dorm room
-Exits: exit 
+Dorm Room #103 (Yours): This is your dorm room
+Exits: exit, 
 NPCs: 
-Items: wizard id,  roommate note,  bed,  
+Items: wizard id , roommate note , bed , 
 
 > take wizard id
 Succsessfuly pick up wizard id. 
@@ -58,113 +58,34 @@ This is a place to get some rest
 Avalon takes a nap to restore his energy
 > go exit
 Dorms (inside): This is where you and your fellow classmates sleep and hang out
-Exits: room 106 exit room 107 room 104 room 105 room 108 room 102 room 103 room 101 
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
 NPCs: 
 Items: 
 
 > go exit
 Dorms (outside): This is where you live in the Academy
-Exits: east south north enter 
+Exits: east, south, north, enter, 
 NPCs: 
 Items: 
 
+> go north
+Food Plaza: A place to meet new people and stop to eat/ drink.
+Exits: east, south, 
+NPCs: nicholas , brandon , eric , 
+Items: candle , taco cart , sandwich shop , 
+
+> take candle
+Succsessfuly pick up candle. 
 > go east
-Courtyard: The courtyard is in the center of the Academy. It has an academy map if you get lost. The fountain is a nice touch.
-Exits: east south north west 
-NPCs: harry,  dr.koscho,  
-Items: map,  foutain,  
-fire angel: an angle around the foutain 
-water angel: an angle around the foutain 
-earth angel: an angle around the foutain 
-wind angel: an angle around the foutain 
-broken angel: an angle hidden in the grass 
-
-> go east
-Merlin Hall (outside): This is the second place you will learn a spell. The water spells.
-Exits: south north west enter 
-NPCs: 
-Items: 
-
-> unlock enter
-Which key? 
-wizard id
-The door has been unlocked. 
-> gosouth
-I don't know what you mean...
-> go south
-Zephiron Hall (outside): This is the fourth place you will learn a spell. The wind spells.
-Exits: north west enter 
-NPCs: 
-Items: 
-
-> unlock enter
-Which key? 
-wizard id
-The door has been unlocked. 
-> go west
-Arawn's Forest: This forest is named after the founder of the Academy.
-Exits: east south north west 
-NPCs: demetrius,  vincent,  
-Items: apple tree,  
-tree: a random tree 
-pond: a small body of water 
-bolder: a large rock 
-leaves: a pile of leaves 
-
-> talk demetrius
-Hey dude, you know the water spell from Merlin right?
-Dude, go find Merlin, then come back here
-> status
-The Player score is: 95
-You are on turn: 20
-Energy: 9/10
-Social: 8/10
-Arawn's Forest: This forest is named after the founder of the Academy.
-Exits: east south north west 
-NPCs: demetrius,  vincent,  
-Items: apple tree,  
-tree: a random tree 
-pond: a small body of water 
-bolder: a large rock 
-leaves: a pile of leaves 
-
-> go south
-Mordain Mansion (outside): An old abandon mansion that used to belong to Mordain. Rumor around school is that he was killed by your teachers.
-Exits: north enter 
-NPCs: sam,  
-Items: 
-
-> go north
-Arawn's Forest: This forest is named after the founder of the Academy.
-Exits: east south north west 
-NPCs: demetrius,  vincent,  
-Items: apple tree,  
-tree: a random tree 
-pond: a small body of water 
-bolder: a large rock 
-leaves: a pile of leaves 
-
-> go north
-Courtyard: The courtyard is in the center of the Academy. It has an academy map if you get lost. The fountain is a nice touch.
-Exits: east south north west 
-NPCs: harry,  dr.koscho,  
-Items: map,  foutain,  
-fire angel: an angle around the foutain 
-water angel: an angle around the foutain 
-earth angel: an angle around the foutain 
-wind angel: an angle around the foutain 
-broken angel: an angle hidden in the grass 
-
-> go north
 Academy Entrance: This is the where you entered the Academy.
-Exits: east south north west 
-NPCs: dr.darrell,  cody,  vinny,  
+Exits: east, south, north, west, 
+NPCs: dr.darrell , cody , vinny , 
 Items: 
 
 > go east
 Orion Hall (outside): This is the first place you will learn a spell. The fire spells.
-Exits: south west enter 
-NPCs: noah,  
+Exits: south, west, enter, 
+NPCs: noah , 
 Items: 
 
 > unlock enter
@@ -173,117 +94,392 @@ wizard id
 The door has been unlocked. 
 > go enter
 Orion Hall (inside): There are several of classrooms and students learning about fire
-Exits: room 106 exit room 107 room 104 room 105 room 108 room 102 room 103 room 101 
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
 NPCs: 
 Items: 
 
+> go room 107
+Orion Room #107: This is a class room
+Exits: exit, 
+NPCs: athena , 
+Items: 
+desk: a random desk, 
 
-You are getting a call from your roommate:
-Hey dude, haven't heard about you in a bit. Hope all is well
-> go room 101
-The door is locked.
-> go room 102
-The door is locked.
+> unpack desk
+What item would you like to unpack?
+roof key
+Succsessfuly pick up roof key. 
+The item has been unpacked. 
+> go exit
+Orion Hall (inside): There are several of classrooms and students learning about fire
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
+
 > go room 105
-Orion Room #5: This is a class room
-Exits: exit 
-NPCs: orion,  
+Orion Room #105: This is a class room
+Exits: exit, 
+NPCs: orion , 
 Items: 
 
 > talk orion
 Hi, when you are ready to learn bring me a candle
+> talk orion
+You gave candle to Orion
+Talk to him again to learn the ways of Fire
+> talk orion
+You now know the ways of fire. Go see Merlin to learn Water!
 > go exit
 Orion Hall (inside): There are several of classrooms and students learning about fire
-Exits: room 106 exit room 107 room 104 room 105 room 108 room 102 room 103 room 101 
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
 NPCs: 
 Items: 
 
 > go exit
 Orion Hall (outside): This is the first place you will learn a spell. The fire spells.
-Exits: south west enter 
-NPCs: noah,  
+Exits: south, west, enter, 
+NPCs: noah , 
+Items: 
+
+> talk noah
+
+noah: 
+A failing wizard
+The name of this school is Aethereal Academy? (true/false)
+> true
+Correct
+Your Social Status went up
+> go south
+Merlin Hall (outside): This is the second place you will learn a spell. The water spells.
+Exits: south, north, west, enter, 
+NPCs: 
+Items: 
+
+> unlock enter
+Which key? 
+wizard id
+The door has been unlocked. 
+> go enter
+Merlin Hall (inside): There are several of classrooms and students learning about water
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
+
+> go room 101
+Merlin Room #101: This is a class room
+Exits: exit, 
+NPCs: merlin , averi , 
+Items: 
+
+> talk merlin
+Hello, I just need to make sure you have the fire spell...
+You do have the spell! Let's talk when you are ready
+> talk merlin
+To teach you the ways of water, we must find a place with water
+Meet me by the fountain to learn the ways of water
+Merlin walked away...
+> go exit
+Merlin Hall (inside): There are several of classrooms and students learning about water
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
+
+> go exit
+Merlin Hall (outside): This is the second place you will learn a spell. The water spells.
+Exits: south, north, west, enter, 
+NPCs: 
 Items: 
 
 > go west
-Academy Entrance: This is the where you entered the Academy.
-Exits: east south north west 
-NPCs: dr.darrell,  cody,  vinny,  
-Items: 
+Courtyard: The courtyard is in the center of the Academy. It has an academy map if you get lost. The fountain is a nice touch.
+Exits: east, south, north, west, 
+NPCs: harry , dr.koscho , merlin , 
+Items: map , fountain , 
+fire angel: an angel around the fountain, 
+water angel: an angel around the fountain, 
+earth angel: an angel around the fountain, 
+wind angel: an angel around the fountain, 
+broken angel: an angel hidden in the grass, 
 
-> go west
-Food Plaza: A place to meet new people and stop to eat/ drink.
-Exits: east south 
-NPCs: nicholas,  brandon,  eric,  
-Items: candle,  taco cart,  sandwich shop,  
-
-> take candle
-Succsessfuly pick up candle. 
 
 You begin to feel sleepy and your tummy grumbles
-> examine taco cart
-This is a good place to eat
-Avalon eats a taco to restore his energy
-> talk eric
+> talk talk merlin
+They are not in this room. 
+> talk merlin
+Merlin teaches you the ways of water with the water in the fountain
+Now, go forth and take your knowledge to learn from Demetrius
+> go south
+Arawn's Forest: This forest is named after the founder of the Academy.
+Exits: east, south, north, west, 
+NPCs: demetrius , vincent , 
+Items: apple tree , 
+tree: a random tree, 
+pond: a small body of water, 
+bolder: a large rock, 
+leaves: a pile of leaves, 
 
-eric: 
-A hungry earth wizard
-You are roommates with Harry, right? (true/false)
+> talk demetrius
+Hey dude, you know the water spell from Merlin right?
+You do know it! Great! Let's talk when you are ready dude!
+> examine apple tree
+There looks to be some good apples in the tree
+Avalon eats an apple to restore his energy
+> talk demetrius
+To teach you the ways of earth, you must find peace
+I can tell you are at peace with yourself
+Meet me back in class and I will teach you some stuff dude!
+Demetrius walked away...
+> talk vincent
+
+vincent: 
+A earth wizard in training
+The name of this school is Aethereal Academy? (true/false)
 > true
 Correct
 Your Social Status went up
+> go west
+Demetrius Hall (outside): This is the third place you will learn a spell. The earth spells.
+Exits: east, north, enter, 
+NPCs: 
+Items: 
 
-You are getting a call from your roommate:
-Hey dude, haven't heard about you in a bit. Hope all is well
-> talk eric
+> unlock enter
+Which key? 
+wizard id
+The door has been unlocked. 
+> go enter
+Demetrius Hall (inside): There are several of classrooms and students learning about earth
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
 
-eric: 
-A hungry earth wizard
-You are roommates with Harry, right? (true/false)
-> true
+> go room 104
+Demetrius Room #104: This is a class room
+Exits: exit, 
+NPCs: demetrius , 
+Items: demetrius note , 
+
+> talk demetrius
+Demetrius teaches you the ways of earth
+Nice dude! One more teacher, Zephiron! Good luck!
+> go exit
+Demetrius Hall (inside): There are several of classrooms and students learning about earth
+Exits: room 106, exit, room 107, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
+
+> go exit
+Demetrius Hall (outside): This is the third place you will learn a spell. The earth spells.
+Exits: east, north, enter, 
+NPCs: 
+Items: 
+
+> go east
+Arawn's Forest: This forest is named after the founder of the Academy.
+Exits: east, south, north, west, 
+NPCs: demetrius , vincent , 
+Items: apple tree , 
+tree: a random tree, 
+pond: a small body of water, 
+bolder: a large rock, 
+leaves: a pile of leaves, 
+
+> go east
+Zephiron Hall (outside): This is the fourth place you will learn a spell. The wind spells.
+Exits: north, west, enter, 
+NPCs: 
+Items: 
+
+> unlock enter
+Which key? 
+wizard id
+The door has been unlocked. 
+> go enter
+Zephiron Hall (inside): There are several of classrooms and students learning about wind
+Exits: room 106, exit, room 107, roof, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
+
+> go room 104
+Zephiron Room #104: This is a class room
+Exits: exit, 
+NPCs: zephiron , 
+Items: 
+
+> talk zephiron
+So... you have mastered all three spells?
+Ok..when you are ready, come find me.
+Zephiron disapeared...
+A note takes his place. Maybe it is a hint?
+> go exit
+Zephiron Hall (inside): There are several of classrooms and students learning about wind
+Exits: room 106, exit, room 107, roof, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
+
+> go exit
+Zephiron Hall (outside): This is the fourth place you will learn a spell. The wind spells.
+Exits: north, west, enter, 
+NPCs: 
+Items: 
+
+> go west
+Arawn's Forest: This forest is named after the founder of the Academy.
+Exits: east, south, north, west, 
+NPCs: demetrius , vincent , 
+Items: apple tree , 
+tree: a random tree, 
+pond: a small body of water, 
+bolder: a large rock, 
+leaves: a pile of leaves, 
+
+> go north
+Courtyard: The courtyard is in the center of the Academy. It has an academy map if you get lost. The fountain is a nice touch.
+Exits: east, south, north, west, 
+NPCs: harry , dr.koscho , merlin , 
+Items: map , fountain , 
+fire angel: an angel around the fountain, 
+water angel: an angel around the fountain, 
+earth angel: an angel around the fountain, 
+wind angel: an angel around the fountain, 
+broken angel: an angel hidden in the grass, 
+
+> go north
+Academy Entrance: This is the where you entered the Academy.
+Exits: east, south, north, west, 
+NPCs: dr.darrell , cody , vinny , 
+Items: bird , 
+
+> take bird
+Succsessfuly pick up bird. 
+> talk vinny
+
+vinny: 
+An overworked wizard
+Orion is the Water Teacher here, right? (true/false)
+> false
 Correct
 Your Social Status went up
-> status
-The Player score is: 190
-You are on turn: 40
-Energy: 10/10
-Social: 7/10
-Food Plaza: A place to meet new people and stop to eat/ drink.
-Exits: east south 
-NPCs: nicholas,  brandon,  eric,  
-Items: taco cart,  sandwich shop,  
+> go south
+Courtyard: The courtyard is in the center of the Academy. It has an academy map if you get lost. The fountain is a nice touch.
+Exits: east, south, north, west, 
+NPCs: harry , dr.koscho , merlin , 
+Items: map , fountain , 
+fire angel: an angel around the fountain, 
+water angel: an angel around the fountain, 
+earth angel: an angel around the fountain, 
+wind angel: an angel around the fountain, 
+broken angel: an angel hidden in the grass, 
 
-> talk eric
+> go south
+Arawn's Forest: This forest is named after the founder of the Academy.
+Exits: east, south, north, west, 
+NPCs: demetrius , vincent , 
+Items: apple tree , 
+tree: a random tree, 
+pond: a small body of water, 
+bolder: a large rock, 
+leaves: a pile of leaves, 
 
-eric: 
-A hungry earth wizard
-You are roommates with Harry, right? (true/false)
-> true
-Correct
-Your Social Status went up
-> talk eric
+> examine apple tree
+There looks to be some good apples in the tree
+Avalon eats an apple to restore his energy
+> go east
+Zephiron Hall (outside): This is the fourth place you will learn a spell. The wind spells.
+Exits: north, west, enter, 
+NPCs: 
+Items: 
 
-eric: 
-A hungry earth wizard
-You are roommates with Harry, right? (true/false)
-> trus
-eric walked away
-Your Social Status went down
-> talk eric
+> go enter
+Zephiron Hall (inside): There are several of classrooms and students learning about wind
+Exits: room 106, exit, room 107, roof, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
 
-eric: 
-A hungry earth wizard
-You are roommates with Harry, right? (true/false)
-> trus
-eric walked away
-Your Social Status went down
-> status
-The Player score is: 205
-You are on turn: 44
-Energy: 9/10
-Social: 6/10
-Food Plaza: A place to meet new people and stop to eat/ drink.
-Exits: east south 
-NPCs: nicholas,  brandon,  eric,  
-Items: taco cart,  sandwich shop,  
+> unlock roof
+Which key? 
+roof key
+The door has been unlocked. 
+> go roof
+Roof: The highest point in the Academy
+Exits: exit, 
+NPCs: zephiron , 
+Items: 
 
-> 
+> talk zephiron
+It is so peaceful up here. 
+To teach you, we need a baby bird...
+You gave bird to Zephiron
+Fine. When you're ready, let us begin.
+> talk zephiron
+Zephiron teaches you the ways of wind
+Now for your final exam, head to the foutain. 
+You will know what to do. 
+> go exit
+Zephiron Hall (inside): There are several of classrooms and students learning about wind
+Exits: room 106, exit, room 107, roof, room 104, room 105, room 108, room 102, room 103, room 101, 
+NPCs: 
+Items: 
+
+> go exit
+Zephiron Hall (outside): This is the fourth place you will learn a spell. The wind spells.
+Exits: north, west, enter, 
+NPCs: 
+Items: 
+
+> go north
+Merlin Hall (outside): This is the second place you will learn a spell. The water spells.
+Exits: south, north, west, enter, 
+NPCs: 
+Items: 
+
+> go west
+Courtyard: The courtyard is in the center of the Academy. It has an academy map if you get lost. The fountain is a nice touch.
+Exits: east, south, north, west, 
+NPCs: harry , dr.koscho , merlin , 
+Items: map , fountain , 
+fire angel: an angel around the fountain, 
+water angel: an angel around the fountain, 
+earth angel: an angel around the fountain, 
+wind angel: an angel around the fountain, 
+broken angel: an angel hidden in the grass, 
+
+> cast fire
+Use spell on what? 
+fire angel
+Succsessfuly pick up token 1/4. 
+You have used your spell
+The fire angle is glowing
+> cast water
+Use spell on what? 
+water angel
+Succsessfuly pick up token 2/4. 
+You have used your spell
+The fire angle is glowing
+The water angle is glowing
+> cast earth
+Use spell on what? 
+earth angel
+Succsessfuly pick up token 3/4. 
+You have used your spell
+The fire angle is glowing
+The water angle is glowing
+The earth angle is glowing
+> cast wind
+Use spell on what? 
+wind angel
+Succsessfuly pick up token 4/4. 
+You have used your spell
+The fire angle is glowing
+The water angle is glowing
+The earth angle is glowing
+The wind angle is glowing
+Dumbledore congradulates you on passing all tests of the Academy
+To the well-organized mind, hires to the next great adventure.
+
+You finished the game (intended ending)
+I hope you had fun with my game!
+Thank you for playing.  Good bye.
+
+Final Score: 620
+Total Moves: 81 / 0

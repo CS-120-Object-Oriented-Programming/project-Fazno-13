@@ -18,7 +18,6 @@ import java.util.HashMap;
 public class World {
 	/** The rooms in the world. */
 	private HashMap<String, Room> rooms;
-	private ArrayList<Item> test = new ArrayList<>();
 	private ArrayList<Item> box1 = new ArrayList<>();
 	private ArrayList<Item> box2 = new ArrayList<>();
 	private ArrayList<Item> box3 = new ArrayList<>();
@@ -114,61 +113,61 @@ public class World {
 		Room insideMordainMansion = new Room("Mordain Mansion (inside)", "The place looks beaten down with an odd statue in the middle");	
 		Room outside = new Room("Outside", "You are now free from the Academy");
 		
-		Room dorm101 = new Room("Dorm Room #1", "This is a dorm room");
-		Room dorm102 = new Room("Dorm Room #2", "This is a dorm room");
-		Room dorm103 = new Room("Dorm Room #3 (Yours)", "This is your dorm room");
-		Room dorm104 = new Room("Dorm Room #4", "This is a dorm room");
-		Room dorm105 = new Room("Dorm Room #5", "This is a dorm room");
-		Room dorm106 = new Room("Dorm Room #6", "This is a dorm room");
-		Room dorm107 = new Room("Dorm Room #7", "This is a dorm room");
-		Room dorm108 = new Room("Dorm Room #8", "This is a dorm room");
+		Room dorm101 = new Room("Dorm Room #101", "This is a dorm room");
+		Room dorm102 = new Room("Dorm Room #102", "This is a dorm room");
+		Room dorm103 = new Room("Dorm Room #103 (Yours)", "This is your dorm room");
+		Room dorm104 = new Room("Dorm Room #104", "This is a dorm room");
+		Room dorm105 = new Room("Dorm Room #105", "This is a dorm room");
+		Room dorm106 = new Room("Dorm Room #106", "This is a dorm room");
+		Room dorm107 = new Room("Dorm Room #107", "This is a dorm room");
+		Room dorm108 = new Room("Dorm Room #108", "This is a dorm room");
 		
-		Room orion101 = new Room("Orion Room #1", "This is a class room");
-		Room orion102 = new Room("Orion Room #2", "This is a class room");
-		Room orion103 = new Room("Orion Room #3", "This is a class room");
-		Room orion104 = new Room("Orion Room #4", "This is a class room");
-		Room orion105 = new Room("Orion Room #5", "This is a class room");
-		Room orion106 = new Room("Orion Room #6", "This is a class room");
-		Room orion107 = new Room("Orion Room #7", "This is a class room");
-		Room orion108 = new Room("Orion Room #8", "This is a class room");
+		Room orion101 = new Room("Orion Room #101", "This is a class room");
+		Room orion102 = new Room("Orion Room #102", "This is a class room");
+		Room orion103 = new Room("Orion Room #103", "This is a class room");
+		Room orion104 = new Room("Orion Room #104", "This is a class room");
+		Room orion105 = new Room("Orion Room #105", "This is a class room");
+		Room orion106 = new Room("Orion Room #106", "This is a class room");
+		Room orion107 = new Room("Orion Room #107", "This is a class room");
+		Room orion108 = new Room("Orion Room #108", "This is a class room");
 		
-		Room merlin101 = new Room("Merlin Room #1", "This is a class room");
-		Room merlin102 = new Room("Merlin Room #2", "This is a class room");
-		Room merlin103 = new Room("Merlin Room #3", "This is a class room");
-		Room merlin104 = new Room("Merlin Room #4", "This is a class room");
-		Room merlin105 = new Room("Merlin Room #5", "This is a class room");
-		Room merlin106 = new Room("Merlin Room #6", "This is a class room");
-		Room merlin107 = new Room("Merlin Room #7", "This is a class room");
-		Room merlin108 = new Room("Merlin Room #8", "This is a class room");
+		Room merlin101 = new Room("Merlin Room #101", "This is a class room");
+		Room merlin102 = new Room("Merlin Room #102", "This is a class room");
+		Room merlin103 = new Room("Merlin Room #103", "This is a class room");
+		Room merlin104 = new Room("Merlin Room #104", "This is a class room");
+		Room merlin105 = new Room("Merlin Room #105", "This is a class room");
+		Room merlin106 = new Room("Merlin Room #106", "This is a class room");
+		Room merlin107 = new Room("Merlin Room #107", "This is a class room");
+		Room merlin108 = new Room("Merlin Room #108", "This is a class room");
 		
-		Room zephiron101 = new Room("Zephiron Room #1", "This is a class room");
-		Room zephiron102 = new Room("Zephiron Room #2", "This is a class room");
-		Room zephiron103 = new Room("Zephiron Room #3", "This is a class room");
-		Room zephiron104 = new Room("Zephiron Room #4", "This is a class room");
-		Room zephiron105 = new Room("Zephiron Room #5", "This is a class room");
-		Room zephiron106 = new Room("Zephiron Room #6", "This is a class room");
-		Room zephiron107 = new Room("Zephiron Room #7", "This is a class room");
-		Room zephiron108 = new Room("Zephiron Room #8", "This is a class room");
+		Room zephiron101 = new Room("Zephiron Room #101", "This is a class room");
+		Room zephiron102 = new Room("Zephiron Room #102", "This is a class room");
+		Room zephiron103 = new Room("Zephiron Room #103", "This is a class room");
+		Room zephiron104 = new Room("Zephiron Room #104", "This is a class room");
+		Room zephiron105 = new Room("Zephiron Room #105", "This is a class room");
+		Room zephiron106 = new Room("Zephiron Room #106", "This is a class room");
+		Room zephiron107 = new Room("Zephiron Room #107", "This is a class room");
+		Room zephiron108 = new Room("Zephiron Room #108", "This is a class room");
 		Room roof = new Room("Roof", "The highest point in the Academy");
 		
 		
-		Room demetrius101 = new Room("Demetrius Room #1", "This is a class room");
-		Room demetrius102 = new Room("Demetrius Room #2", "This is a class room");
-		Room demetrius103 = new Room("Demetrius Room #3", "This is a class room");
-		Room demetrius104 = new Room("Demetrius Room #4", "This is a class room");
-		Room demetrius105 = new Room("Demetrius Room #5", "This is a class room");
-		Room demetrius106 = new Room("Demetrius Room #6", "This is a class room");
-		Room demetrius107 = new Room("Demetrius Room #7", "This is a class room");
-		Room demetrius108 = new Room("Demetrius Room #8", "This is a class room");
+		Room demetrius101 = new Room("Demetrius Room #101", "This is a class room");
+		Room demetrius102 = new Room("Demetrius Room #102", "This is a class room");
+		Room demetrius103 = new Room("Demetrius Room #103", "This is a class room");
+		Room demetrius104 = new Room("Demetrius Room #104", "This is a class room");
+		Room demetrius105 = new Room("Demetrius Room #105", "This is a class room");
+		Room demetrius106 = new Room("Demetrius Room #106", "This is a class room");
+		Room demetrius107 = new Room("Demetrius Room #107", "This is a class room");
+		Room demetrius108 = new Room("Demetrius Room #108", "This is a class room");
 		
-		Room mordain101 = new Room("Room #1", "This is a class room");
-		Room mordain102 = new Room("Room #2", "This is a class room");
-		Room mordain103 = new Room("Room #3", "This is a class room");
-		Room mordain104 = new Room("Room #4", "This is a class room");
-		Room mordain105 = new Room("Room #5", "This is a class room");
-		Room mordain106 = new Room("Room #6", "This is a class room");
-		Room mordain107 = new Room("Room #7", "This is a class room");
-		Room mordain108 = new Room("Room #8", "This is a class room");
+		Room mordain101 = new Room("Room #101", "This is a class room");
+		Room mordain102 = new Room("Room #102", "This is a class room");
+		Room mordain103 = new Room("Room #103", "This is a class room");
+		Room mordain104 = new Room("Room #104", "This is a class room");
+		Room mordain105 = new Room("Room #105", "This is a class room");
+		Room mordain106 = new Room("Room #106", "This is a class room");
+		Room mordain107 = new Room("Room #107", "This is a class room");
+		Room mordain108 = new Room("Room #108", "This is a class room");
 				
 		// Adding all the rooms to the world
 		this.addRoom(foodPlaza);
@@ -464,17 +463,17 @@ public class World {
 		arawnsForest.addItem(createItem(new Item("apple tree",0,1, "There looks to be some good apples in the tree")));
 		
 		courtyard.addItem(createItem(new Item("map",0,1, "A map of the Academy")));
-		courtyard.addItem(createItem(new Item("foutain",0,1, "A pretty fountain with 5 angels around it, but one seems to have broken off")));
+		courtyard.addItem(createItem(new Item("fountain",0,1, "A pretty fountain with 5 angels around it, but one seems to have broken off")));
 		box6.add(new Item("token 1/4", 0, 0, "a token for your final"));
 		box7.add(new Item("token 2/4", 0, 0, "a token for your final"));
 		box8.add(new Item("token 3/4", 0, 0, "a token for your final"));
 		box9.add(new Item("token 4/4", 0, 0, "a token for your final"));
 		box10.add(new Item("dark token", 0, 0, "a token for your final???"));
-		courtyard.addItem(createContainer(new Container("fire angel", 0, 1, "an angle around the foutain", box6,"fire scroll"),true));
-		courtyard.addItem(createContainer(new Container("water angel", 0, 1, "an angle around the foutain", box7,"water scroll"),true));
-		courtyard.addItem(createContainer(new Container("earth angel", 0, 1, "an angle around the foutain", box8,"earth scroll"),true));
-		courtyard.addItem(createContainer(new Container("wind angel", 0, 1, "an angle around the foutain", box9,"wind scroll"),true));
-		courtyard.addItem(createContainer(new Container("broken angel", 0, 1, "an angle hidden in the grass", box10,"dark scroll"),true));
+		courtyard.addItem(createContainer(new Container("fire angel", 0, 1, "an angel around the fountain", box6,"fire scroll"),true));
+		courtyard.addItem(createContainer(new Container("water angel", 0, 1, "an angel around the fountain", box7,"water scroll"),true));
+		courtyard.addItem(createContainer(new Container("earth angel", 0, 1, "an angel around the fountain", box8,"earth scroll"),true));
+		courtyard.addItem(createContainer(new Container("wind angel", 0, 1, "an angel around the fountain", box9,"wind scroll"),true));
+		courtyard.addItem(createContainer(new Container("broken angel", 0, 1, "an angel hidden in the grass", box10,"dark scroll"),true));
 
 		box5.add(new Item("roof key",0,0, "keys to get onto the roof"));
 		orion107.addItem(createContainer(new Container("desk", 0, 1, "a random desk", box5,null),false));
@@ -489,13 +488,13 @@ public class World {
 		arawnsForest.addItem(createContainer(new Container("bolder", 0, 1, "a large rock", box3,"earth scroll"),true));
 		arawnsForest.addItem(createContainer(new Container("leaves", 0, 1, "a pile of leaves", box4,"wind scroll"),true));
 
-		insideMordainMansion.addItem(createContainer(new Container("mordain statue", 0, 1, "A broken statue of one of the old professors. It seems to have 5 missing orbs around the base.", box11,null),false));
-		mordain104.addItem(createItem(new Item("journal",0,1, "The journal says: Only a true wizard can find the keys hidden in Arawns Forest.")));
 		insideMordainMansion.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
 		mordain102.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
 		mordain103.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
 		mordain106.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
 		mordain108.addItem(createItem(new Item("orb",0,0, "a slightly glowing ball")));
+		mordain104.addItem(createItem(new Item("journal",0,1, "The journal says: Only a true wizard can find the keys hidden in Arawns Forest.")));
+		insideMordainMansion.addItem(createContainer(new Container("mordain statue", 0, 1, "A broken statue of one of the old professors. It seems to have 5 missing orbs around the base.", box11,null),false));
 
 		
 		// Adding NPCs to there rooms
@@ -510,8 +509,8 @@ public class World {
 		merlin101.addNPC(createNPC(new Merlin("merlin","The Water Wizard",0)));
 		arawnsForest.addNPC(createNPC(new Demetrius("demetrius","The Earth Wizard",0)));
 
-		enterance.addNPC(createNPC(new NPC("dr.darrell","A professor form another school")));
-		courtyard.addNPC(createNPC(new NPC("dr.koscho","A professor form another school")));
+		enterance.addNPC(createNPC(new NPC("dr.darrell","A professor from another school")));
+		courtyard.addNPC(createNPC(new NPC("dr.koscho","A professor from another school")));
 		enterance.addNPC(createNPC(new NPC("cody","A wizard in training")));
 		orion103.addNPC(createNPC(new NPC("leonel","A fire wizard")));
 		merlin101.addNPC(createNPC(new NPC("averi","A water wizard in training")));
