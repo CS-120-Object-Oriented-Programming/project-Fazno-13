@@ -1,4 +1,9 @@
 package edu.kings;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -21,16 +26,36 @@ public class Room {
 	private String name;
 	/** The description of this room. */
 	private String description;
-
-	/** This room's north exit, null if none exits. */
-	public Door northExit;
-	/** This room's south exit, null if none exits. */
-	public Door southExit;
-	/** This room's east exit, null if none exits. */
-	public Door eastExit;
-	/** This room's west exit, null if none exits. */
-	public Door westExit;
-
+	
+	// Key is direction and Value is Door
+	// HashMap for all Doors
+	// Doors: North, South, East, West, Portal, Void
+	HashMap<String, Door> allDoors = new HashMap<>();
+	
+	// A list of items in that room
+	ArrayList <Item> itemsInRoom = new ArrayList<>();
+	
+	// A list of NPCs in that room
+	ArrayList <NPC> npcsInRoom = new ArrayList<>();
+	
+	public String toString() {
+		String retVal = getName() + ": " + getDescription() + "\nExits: ";
+		for (String nextDoor: allDoors.keySet()) {
+			retVal += nextDoor + ", ";
+		}
+		retVal += "\nNPCs: ";
+		for (int i=0; i< npcsInRoom.size(); i++) {
+			retVal += npcsInRoom.get(i).toString() + ", ";
+		}
+		
+		retVal += "\nItems: ";
+		for (int i=0; i< itemsInRoom.size(); i++) {
+			retVal += itemsInRoom.get(i).toString() + ", ";
+		}
+		return retVal + "\n";
+	}
+	
+	
 	/**
 	 * Static initializer.
 	 */
@@ -68,6 +93,7 @@ public class Room {
 	public String getDescription() {
 		return description;
 	}
+	
 
 	/**
 	 * Returns the number of rooms that have been created in the world.
@@ -76,4 +102,56 @@ public class Room {
 	public static int getCounter() {
 		return counter;
 	}
+	
+	/** 
+	* Defines an exit from this room. 
+	* 
+	* @param direction The direction of the exit. 
+	* @param neighbor The door in the given direction. 
+	*/ 
+	
+	public void setExit(String direction, Door neighbor) {
+		allDoors.put(direction, neighbor);
+	}
+	
+	public Door getExit(String direction) {
+		return allDoors.get(direction);
+	}
+	
+	
+	// make a list, add item to list, remove from list and add to inventory, 
+	public void addItem(Item newItem) {
+		itemsInRoom.add(newItem);
+	}
+	
+	public ArrayList<Item> getItem() {
+		return itemsInRoom;
+	}
+	
+	public Item removeItem(String itemName) {
+		for (int i=0;  i < itemsInRoom.size(); i++) {
+			if (itemsInRoom.get(i).getName() == itemName) {
+				itemsInRoom.remove(i);
+				return itemsInRoom.get(i);
+			}
+		} return null;
+	}
+	
+	// make a list, add item to list, remove from list and add to inventory, 
+		public void addNPC(NPC newNPC) {
+			npcsInRoom.add(newNPC);
+		}
+		
+		public ArrayList<NPC> getNPC() {
+			return npcsInRoom;
+		}
+		
+		public NPC removeNPC(String npcName) {
+			for (int i=0;  i < npcsInRoom.size(); i++) {
+				if (npcsInRoom.get(i).getName() == npcName) {
+					npcsInRoom.remove(i);
+					return npcsInRoom.get(i);
+				}
+			} return null;
+		}
 }
